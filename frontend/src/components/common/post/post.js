@@ -1,10 +1,10 @@
 import { lucid } from "../../../libs/lucid";
 import { superpage } from "../../../libs/superpage";
 
-import { Component_Icon_Like } from "../../icons/like";
-import { Component_Icon_Bookmark } from "../../icons/bookmark";
+import { Component_Icon_Like } from "../../icons/icon_like";
+import { Component_Icon_Bookmark } from "../../icons/icon_bookmark";
 
-import { storePost, POST_ACTS } from "../../../stores/post";
+import { storePost, POST_ACTS } from "../../../stores/store_post";
 
 import { clampDate, fullDate } from "../../../core/date_utility";
 import { clampNumber } from "../../../core/utility";

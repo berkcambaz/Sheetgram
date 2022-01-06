@@ -2,7 +2,7 @@ import { lucid } from "../libs/lucid";
 
 import { getViewComponent } from "../core/component_utility";
 
-import { Component_Icon_Menu } from "./icons/menu";
+import { Component_Icon_Menu } from "./icons/icon_menu";
 
 export const Component_App = lucid.component({
   attributes: function () { return { page: undefined, args: undefined }; },
