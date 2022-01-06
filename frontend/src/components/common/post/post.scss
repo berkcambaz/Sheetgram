@@ -1,0 +1,35 @@
+@import "../../../styles/mixins";
+
+.post {
+
+  padding: 20px 0;
+
+  .post__top {
+
+  }
+
+  .post__content {
+    margin: 5px 10px;
+  }
+
+  .post__bottom {
+    margin: 0 10px;
+  }
+
+  .post__user-info {
+    @include hover_bottom();
+  }
+
+  .post__username {
+
+  }
+
+  .post__usertag {
+    margin: 0 5px;
+  }
+
+  .post__date {
+    @include hover_bottom();
+  }
+
+}

@@ -3,15 +3,26 @@
 #app {
   
   .app__top {
-    @include app_bar("top");
+    position: fixed;
+    height: 50px;
+    width: 640px;
+    
+    background-color: #ffffff;  
+    
+    top: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+
+    @media screen and (max-width: 640px) {
+      width: 100%;
+    }
 
     .app__top__title {
       display: inline-block;
 
       font-size: 25px;
       font-weight: bold;
+
       line-height: 50px;
-      
       margin-left: 50px;
     }
 
@@ -26,7 +37,8 @@
   }
 
   .app__content {
-    
+    margin: 50px 0;
+    padding: 0 25px;
   }
 
 }

@@ -1,20 +1,8 @@
-@mixin app_bar($position) {
-  position: fixed;
-  height: 50px;
-  width: 640px;
+@mixin hover_bottom() {
+  cursor: pointer;
 
-  background-color: #ffffff;
-
-  @if $position == "top" {
-    top: 0;
-    border-bottom: 1px solid #000000;
-  } 
-  @if $position == "bottom" {
-    bottom: 0;
-    border-top: 1px solid #000000;
-  }
-
-  @media screen and (max-width: 640px) {
-    width: 100%;
+  &:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    margin-bottom: -1px;
   }
 }
