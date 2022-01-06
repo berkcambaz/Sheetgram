@@ -3,6 +3,7 @@ import { lucid } from "../libs/lucid";
 import { getViewComponent } from "../core/component_utility";
 
 import { Component_Icon_Menu } from "./icons/icon_menu";
+import { Component_Effect_Blur } from "./common/blur/blur";
 
 export const Component_App = lucid.component({
   attributes: function () { return { page: undefined, args: undefined }; },
@@ -25,6 +26,8 @@ export const Component_App = lucid.component({
         class: "app__top__icon",
         onclick: () => { }
       }, { first: true })
+
+      lucid.render(this.refs["content"], Component_Effect_Blur, 0)
     }
   },
   watch: {
