@@ -1,11 +1,13 @@
 import { lucid } from "../libs/lucid";
 
-import { getViewComponent, getViewIcon } from "../core/component_utility";
+import { getViewComponent } from "../core/component_utility";
+
+import { Component_Icon_Menu } from "./icons/menu";
 
 export const Component_App = lucid.component({
   attributes: function () { return { page: undefined, args: undefined }; },
   methods: {
-    getPageName: function () { return this.attributes.page === undefined ? "" : this.attributes.page }
+    getPageName: function () { return this.attributes.page === undefined ? "" : this.attributes.page },
   },
   render: function () {
     return `
@@ -17,18 +19,20 @@ export const Component_App = lucid.component({
       </div>
     `;
   },
+  hooks: {
+    connected: function () {
+      lucid.render(this.refs["top"], Component_Icon_Menu, "home", {
+        class: "app__top__icon",
+        onclick: () => { }
+      }, { first: true })
+    }
+  },
   watch: {
     page: function (oldPage, newPage) {
       this.setState();
 
-      if (oldPage) {
-        lucid.remove(getViewComponent(oldPage), 0);
-        //const oldViewIcon = getViewIcon(oldPage);
-        //if (oldViewIcon) lucid.instance(oldViewIcon, "app").attribute("class", "app__bottom__icon");
-      }
+      if (oldPage) lucid.remove(getViewComponent(oldPage), 0);
       lucid.render(this.refs["content"], getViewComponent(newPage), 0, { args: this.attributes.args });
-      //const newViewIcon = getViewIcon(newPage);
-      //if (newViewIcon) lucid.instance(newViewIcon, "app").attribute("class", "app__bottom__icon enabled");
     }
   }
 });

@@ -8,9 +8,3 @@ export function getViewComponent(view) {
     default: return undefined;
   }
 }
-
-export function getViewIcon(view) {
-  switch (view) {
-    default: return undefined;
-  }
-}

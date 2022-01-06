@@ -11,6 +11,17 @@
       font-size: 25px;
       font-weight: bold;
       line-height: 50px;
+      
+      margin-left: 50px;
+    }
+
+    .app__top__icon {
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin: 9px;
+
+      cursor: pointer;
     }
   }
 
