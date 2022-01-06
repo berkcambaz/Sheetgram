@@ -32,4 +32,16 @@
     @include hover_bottom();
   }
 
+  .post__count {
+
+  }
+
+  .post__icon {
+    display: inline-block;
+    cursor: pointer;
+
+    &.enabled {
+      fill: #000000;
+    }
+  }
 }
