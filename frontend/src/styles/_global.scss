@@ -1,0 +1,15 @@
+@import "variables";
+
+body {
+  margin: 0 auto;
+  padding: 0;
+  outline: 0;
+
+  max-width: 640px;
+
+  overflow-y: scroll;
+  font-family: $font;
+  
+  // Disable highlight on mobile's when clicking
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
