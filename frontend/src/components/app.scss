@@ -6,20 +6,16 @@
     @include app_bar("top");
 
     .app__top__title {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 31px;
-      height: 50px;
+      display: inline-block;
+
+      font-size: 25px;
+      font-weight: bold;
+      line-height: 50px;
     }
   }
 
   .app__content {
     
-  }
-
-  .app__bottom {
-    @include app_bar("bottom");
   }
 
 }

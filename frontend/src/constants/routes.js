@@ -1,22 +1,22 @@
 export const ROUTES = {
   HOME: {
     path: "/home",
-    name: "home"
+    name: "Home"
   },
   SEARCH: {
     path: "/search",
-    name: "search"
+    name: "Search"
   },
   USER: {
     path: "/user/([a-z0-9_]+)",
-    name: "user"
+    name: "User"
   },
   LOGIN: {
     path: "/login",
-    name: "login"
+    name: "Login"
   },
   SIGNUP: {
     path: "/signup",
-    name: "signup"
+    name: "Signup"
   },
 }
