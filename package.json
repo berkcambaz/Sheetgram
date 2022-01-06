@@ -1,0 +1,22 @@
+{
+  "name": "sheetgram",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/berkcambaz/Sheetgram.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/berkcambaz/Sheetgram/issues"
+  },
+  "homepage": "https://github.com/berkcambaz/Sheetgram#readme",
+  "devDependencies": {
+    "concurrently": "^7.0.0"
+  }
+}
