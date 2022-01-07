@@ -5,21 +5,23 @@
   
   position: absolute;
   top: 51px; // 50px(height of top bar) + 1px(border-bottom of top bar)
+
+  width: 640px - 25px * 2; // Remove padding 
+  height: calc(100vh - 51px); // To make top bar visible at all times
+  margin: 0 25px;
+
+  @media screen and (max-width: 640px) {
+    width: calc(100% - 25px * 2);
+  }
   
   overflow: hidden;
 
   .menu__container {
-    width: 640px - 25px * 2; // Remove padding 
-    height: calc(100vh - 51px); // To make top bar visible at all times
-  
-    padding: 0 25px;
+    width: 100%; 
+    height: 100%; 
     
     background-color: #ffffff;
     z-index: 999;
-
-    @media screen and (max-width: 640px) {
-      width: 100%;
-    }
   }
   
   .menu__section {
