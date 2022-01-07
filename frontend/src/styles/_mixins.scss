@@ -1,3 +1,5 @@
+@import "variables";
+
 @mixin hover_bottom() {
   cursor: pointer;
 
@@ -17,4 +19,20 @@
     border: 0;
     margin: 0;
   }
+}
+
+@mixin default_input {
+  overflow-wrap: break-word;
+  font-size: 16px;
+  font-family: $font;
+
+  resize: none;
+  outline: 0;
+  border: 0;
+  padding: 0;
+  
+  border-bottom: 1px solid #000000;
+  border-radius: 0;
+  
+  padding-bottom: 1px;
 }

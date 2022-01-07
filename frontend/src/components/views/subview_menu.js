@@ -38,7 +38,9 @@ export const Component_SubView_Menu = lucid.component({
             </div>
           </div>
           <div class="menu__section">
-            <div class="menu__item" lucid-ref="search"><div>Search</div></div>
+            <div class="menu__item" lucid-ref="search">
+              <input class="menu__search" type="text" placeholder="Search..." spellcheck="false" autocomplete="false">
+            </div>
           </div>
           <div class="menu__section">
             <div class="menu__item" lucid-ref="profile"><div>Profile</div></div>
