@@ -14,36 +14,36 @@ superpage.redirect("/", "/home");
 superpage.fallback(function () { console.log("Route was not found."); });
 
 superpage.route(ROUTES.LOGIN.path, function () {
-  lucid.instance(Component_App, 0).attribute("page", ROUTES.LOGIN.name);
+  lucid.instance(Component_App, 0).attribute("route", ROUTES.LOGIN);
 });
 
 superpage.route(ROUTES.SIGNUP.path, function () {
-  lucid.instance(Component_App, 0).attribute("page", ROUTES.SIGNUP.name);
+  lucid.instance(Component_App, 0).attribute("route", ROUTES.SIGNUP);
 });
 
 superpage.route(ROUTES.HOME.path, function () {
-  lucid.instance(Component_App, 0).attribute("page", ROUTES.HOME.name);
+  lucid.instance(Component_App, 0).attribute("route", ROUTES.HOME);
 });
 
 superpage.route(ROUTES.USER.path, function (usertag) {
   lucid.instance(Component_App, 0).attribute("args", usertag);
-  lucid.instance(Component_App, 0).attribute("page", ROUTES.USER.name);
+  lucid.instance(Component_App, 0).attribute("route", ROUTES.USER);
 });
 
 superpage.route(ROUTES.BOOKMARKS.path, function () {
-  lucid.instance(Component_App, 0).attribute("page", ROUTES.BOOKMARKS.name);
+  lucid.instance(Component_App, 0).attribute("route", ROUTES.BOOKMARKS);
 });
 
 superpage.route(ROUTES.SETTINGS.path, function () {
-  lucid.instance(Component_App, 0).attribute("page", ROUTES.SETTINGS.name);
+  lucid.instance(Component_App, 0).attribute("route", ROUTES.SETTINGS);
 });
 
 superpage.route(ROUTES.ABOUT.path, function () {
-  lucid.instance(Component_App, 0).attribute("page", ROUTES.ABOUT.name);
+  lucid.instance(Component_App, 0).attribute("route", ROUTES.ABOUT);
 });
 
 superpage.route(ROUTES.ACCOUNTS.path, function () {
-  lucid.instance(Component_App, 0).attribute("page", ROUTES.ACCOUNTS.name);
+  lucid.instance(Component_App, 0).attribute("route", ROUTES.ACCOUNTS);
 });
 
 superpage.run("hash", function () {

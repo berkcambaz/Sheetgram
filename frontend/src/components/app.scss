@@ -1,5 +1,12 @@
 @import "../styles/mixins";
 
+@mixin app_top_icon {
+  position: absolute;
+  top: 0;
+  margin: 9px;
+  cursor: pointer;
+}
+
 #app {
   
   .app__top {
@@ -28,13 +35,16 @@
       margin-left: 50px;
     }
 
-    .app__top__icon {
-      position: absolute;
-      left: 0;
-      top: 0;
-      margin: 9px;
+    .app__top__icon--left {
+      @include app_top_icon();
 
-      cursor: pointer;
+      left: 0;
+    }
+
+    .app__top__icon--right {
+      @include app_top_icon();
+
+      right: 0;
     }
   }
 
