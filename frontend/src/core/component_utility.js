@@ -1,3 +1,6 @@
+import { Component_View_Login } from "../components/views/view_login";
+import { Component_View_Signup } from "../components/views/view_signup";
+
 import { Component_View_Home } from "../components/views/view_home";
 import { Component_View_User } from "../components/views/view_user";
 import { Component_View_Bookmarks } from "../components/views/view_bookmarks";
@@ -9,6 +12,8 @@ import { ROUTES } from "../constants/routes";
 
 export function getViewComponent(view) {
   switch (view) {
+    case ROUTES.LOGIN.name: return Component_View_Login;
+    case ROUTES.SIGNUP.name: return Component_View_Signup;
     case ROUTES.HOME.name: return Component_View_Home;
     case ROUTES.USER.name: return Component_View_User;
     case ROUTES.BOOKMARKS.name: return Component_View_Bookmarks;
