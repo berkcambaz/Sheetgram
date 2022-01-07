@@ -61,6 +61,11 @@ export const Component_SubView_Menu = lucid.component({
       superpage.to("/accounts");
       this.methods.toggleTransition(this.attributes.class);
     },
+    logout: function () {
+      // TODO: Log out
+      superpage.to("/login");
+      this.methods.toggleTransition(this.attributes.class);
+    }
   },
   render: function () {
     return `
@@ -90,7 +95,7 @@ export const Component_SubView_Menu = lucid.component({
           </div>
           <div class="menu__section">
             <div class="menu__item" lucid-ref="accounts" onclick="{{methods.accounts}}"><div>Accounts</div></div>
-            <div class="menu__item" lucid-ref="logout"><div>Log out</div></div>
+            <div class="menu__item" lucid-ref="logout" onclick="{{methods.logout}}"><div>Log out</div></div>
           </div>
         </div>
       </div>
