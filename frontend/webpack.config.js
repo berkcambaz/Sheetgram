@@ -6,7 +6,7 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     filename: "index.js",
-    path: __dirname + "/build"
+    path: __dirname + "/public"
   },
   module: {
     rules: [
