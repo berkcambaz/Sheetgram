@@ -34,6 +34,18 @@ superpage.route(ROUTES.BOOKMARKS.path, function () {
   lucid.instance(Component_App, 0).attribute("page", ROUTES.BOOKMARKS.name);
 });
 
+superpage.route(ROUTES.SETTINGS.path, function () {
+  lucid.instance(Component_App, 0).attribute("page", ROUTES.SETTINGS.name);
+});
+
+superpage.route(ROUTES.ABOUT.path, function () {
+  lucid.instance(Component_App, 0).attribute("page", ROUTES.ABOUT.name);
+});
+
+superpage.route(ROUTES.ACCOUNTS.path, function () {
+  lucid.instance(Component_App, 0).attribute("page", ROUTES.ACCOUNTS.name);
+});
+
 superpage.run("hash", function () {
   lucid.render(document.getElementById("app"), Component_App, 0);
 });

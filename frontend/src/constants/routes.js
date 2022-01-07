@@ -1,4 +1,12 @@
 export const ROUTES = {
+  LOGIN: {
+    path: "/login",
+    name: "Login"
+  },
+  SIGNUP: {
+    path: "/signup",
+    name: "Signup"
+  },
   HOME: {
     path: "/home",
     name: "Home"
@@ -11,12 +19,16 @@ export const ROUTES = {
     path: "/bookmarks",
     name: "Bookmarks"
   },
-  LOGIN: {
-    path: "/login",
-    name: "Login"
+  SETTINGS: {
+    path: "/settings",
+    name: "Settings"
   },
-  SIGNUP: {
-    path: "/signup",
-    name: "Signup"
+  ABOUT: {
+    path: "/about",
+    name: "About"
+  },
+  ACCOUNTS: {
+    path: "/accounts",
+    name: "Accounts"
   },
 }

@@ -19,6 +19,13 @@ export const Component_SubView_Menu = lucid.component({
     transitionend: function (ev) {
       if (this.attributes.class === "transition__slide--left") lucid.remove(this.id, this.key);
     },
+    toggleTransition: function (oldClass) {
+      switch (oldClass) {
+        case "transition__slide--right": this.attributes.class = "transition__slide--left"; break;
+        case "transition__slide--left": this.attributes.class = "transition__slide--right"; break;
+      }
+      this.setState();
+    },
     getFollowerCount: function () {
       return clampNumber(this.attributes.user.followers);
     },
@@ -27,13 +34,28 @@ export const Component_SubView_Menu = lucid.component({
     },
     search: function (ev) {
       superpage.to("/user/" + this.refs["searchbar"].value);
+      this.methods.toggleTransition(this.attributes.class);
     },
     profile: function (ev) {
       superpage.to("/user/" + this.attributes.user.usertag);
+      this.methods.toggleTransition(this.attributes.class);
     },
     bookmarks: function (ev) {
       superpage.to("/bookmarks");
-    }
+      this.methods.toggleTransition(this.attributes.class);
+    },
+    settings: function (ev) {
+      superpage.to("/settings");
+      this.methods.toggleTransition(this.attributes.class);
+    },
+    about: function (ev) {
+      superpage.to("/about");
+      this.methods.toggleTransition(this.attributes.class);
+    },
+    accounts: function (ev) {
+      superpage.to("/accounts");
+      this.methods.toggleTransition(this.attributes.class);
+    },
   },
   render: function () {
     return `
@@ -57,11 +79,11 @@ export const Component_SubView_Menu = lucid.component({
             <div class="menu__item" lucid-ref="bookmarks" onclick="{{methods.bookmarks}}"><div>Bookmarks</div></div>
           </div>
           <div class="menu__section">
-            <div class="menu__item" lucid-ref="settings"><div>Settings</div></div>
-            <div class="menu__item" lucid-ref="about"><div>About</div></div>
+            <div class="menu__item" lucid-ref="settings" onclick="{{methods.settings}}"><div>Settings</div></div>
+            <div class="menu__item" lucid-ref="about" onclick="{{methods.about}}"><div>About</div></div>
           </div>
           <div class="menu__section">
-            <div class="menu__item" lucid-ref="accounts"><div>Accounts</div></div>
+            <div class="menu__item" lucid-ref="accounts" onclick="{{methods.accounts}}"><div>Accounts</div></div>
             <div class="menu__item" lucid-ref="logout"><div>Log out</div></div>
           </div>
         </div>
@@ -88,11 +110,7 @@ export const Component_SubView_Menu = lucid.component({
   },
   watch: {
     class: function (oldClass, newClass) {
-      switch (oldClass) {
-        case "transition__slide--right": this.attributes.class = "transition__slide--left"; break;
-        case "transition__slide--left": this.attributes.class = "transition__slide--right"; break;
-      }
-      this.setState();
+      this.methods.toggleTransition(oldClass);
     }
   }
 });
