@@ -2,6 +2,8 @@ import { lucid } from "../libs/lucid";
 
 import { Component_SubView_Menu } from "./views/subview_menu";
 import { Component_SubView_PostCreate } from "./views/subview_postcreate";
+
+import { Component_Icon_Login } from "./icons/icon_login";
 import { Component_Icon_Menu } from "./icons/icon_menu";
 import { Component_Icon_Pencil } from "./icons/icon_pencil";
 
@@ -33,13 +35,17 @@ export const Component_App = lucid.component({
   },
   hooks: {
     connected: function () {
+      lucid.render(this.refs["top"], Component_Icon_Login, "home", {
+        class: "app__top__icon--left hidden"
+      }, { first: true });
+
       lucid.render(this.refs["top"], Component_Icon_Menu, "home", {
-        class: "app__top__icon--left",
+        class: "app__top__icon--left hidden",
         onclick: () => { this.methods.toggleMenu() }
       }, { first: true });
 
       lucid.render(this.refs["top"], Component_Icon_Pencil, "home", {
-        class: "app__top__icon--right",
+        class: "app__top__icon--right hidden",
         onclick: () => { this.methods.showPostCreate() }
       });
     }
@@ -51,6 +57,9 @@ export const Component_App = lucid.component({
      * @param {import("../constants/routes").Route} newRoute 
      */
     route: function (oldRoute, newRoute) {
+      if (newRoute.properties.showLogin) lucid.instance(Component_Icon_Login, "home").attribute("class", "app__top__icon--left");
+      else lucid.instance(Component_Icon_Login, "home").attribute("class", "app__top__icon--left hidden");
+
       if (newRoute.properties.hideMenu) lucid.instance(Component_Icon_Menu, "home").attribute("class", "app__top__icon--left hidden");
       else lucid.instance(Component_Icon_Menu, "home").attribute("class", "app__top__icon--left");
 
