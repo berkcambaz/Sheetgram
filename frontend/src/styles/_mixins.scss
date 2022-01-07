@@ -41,3 +41,51 @@
   -moz-appearance: none;
   appearance: none;
 }
+
+@mixin default_button {
+  padding: 5px 20px;
+
+  background-color: rgba(0, 0, 0, 1);
+  color: #ffffff;
+
+  font-size: 15px;
+
+  border-radius: 10px;
+  border: 0;
+  
+  cursor: pointer;
+}
+
+@mixin default_button--text {
+  @include hover_bottom();
+
+  cursor: pointer;
+}
+
+@mixin authorization_page() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  :nth-child(n) {
+    margin-top: 10px;
+  }
+
+  :nth-child(1) {
+    margin-top: 20px;
+  }
+
+  &.input {
+    @include default_input();
+  }
+
+  &.button {
+    @include default_button();
+  }
+
+  &.button--text {
+    @include default_button--text();
+    font-size: 14px;
+  }
+}
