@@ -33,6 +33,8 @@ export const Component_App = lucid.component({
         class: "app__top__icon",
         onclick: () => { this.methods.toggleMenu() }
       }, { first: true });
+
+      lucid.render(this.dom, Component_SubView_Menu, "app");
     }
   },
   watch: {
