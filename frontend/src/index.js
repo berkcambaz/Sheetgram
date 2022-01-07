@@ -25,13 +25,13 @@ superpage.route(ROUTES.HOME.path, function () {
   lucid.instance(Component_App, 0).attribute("page", ROUTES.HOME.name);
 });
 
-superpage.route(ROUTES.SEARCH.path, function () {
-  lucid.instance(Component_App, 0).attribute("page", ROUTES.SEARCH.name);
-});
-
 superpage.route(ROUTES.USER.path, function (usertag) {
   lucid.instance(Component_App, 0).attribute("args", usertag);
   lucid.instance(Component_App, 0).attribute("page", ROUTES.USER.name);
+});
+
+superpage.route(ROUTES.BOOKMARKS.path, function () {
+  lucid.instance(Component_App, 0).attribute("page", ROUTES.BOOKMARKS.name);
 });
 
 superpage.run("hash", function () {

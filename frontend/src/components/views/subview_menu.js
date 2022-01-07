@@ -27,6 +27,12 @@ export const Component_SubView_Menu = lucid.component({
     },
     search: function (ev) {
       superpage.to("/user/" + this.refs["searchbar"].value);
+    },
+    profile: function (ev) {
+      superpage.to("/user/" + this.attributes.user.usertag);
+    },
+    bookmarks: function (ev) {
+      superpage.to("/bookmarks");
     }
   },
   render: function () {
@@ -47,8 +53,8 @@ export const Component_SubView_Menu = lucid.component({
             </div>
           </div>
           <div class="menu__section">
-            <div class="menu__item" lucid-ref="profile"><div>Profile</div></div>
-            <div class="menu__item" lucid-ref="bookmarks"><div>Bookmarks</div></div>
+            <div class="menu__item" lucid-ref="profile" onclick="{{methods.profile}}"><div>Profile</div></div>
+            <div class="menu__item" lucid-ref="bookmarks" onclick="{{methods.bookmarks}}"><div>Bookmarks</div></div>
           </div>
           <div class="menu__section">
             <div class="menu__item" lucid-ref="settings"><div>Settings</div></div>
