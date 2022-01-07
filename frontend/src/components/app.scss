@@ -8,7 +8,7 @@
 }
 
 #app {
-  
+
   .app__top {
     position: fixed;
     height: 50px;
@@ -49,8 +49,11 @@
   }
 
   .app__content {
-    margin-top: 50px;
     padding: 0 25px;
+    margin-top: 50px;
+    
+    height: calc(100vh - 50px);
+    overflow-y: scroll;
   }
 
 }

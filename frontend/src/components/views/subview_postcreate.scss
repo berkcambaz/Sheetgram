@@ -1,7 +1,17 @@
 .post-create {
 
-  .post-create__container {
-    
+  position: fixed;
+  top: 51px; // 50px(height of top bar) + 1px(border-bottom of top bar)
+
+  width: 320px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  z-index: 1001;
+  background-color: #ffffff;
+
+  @media screen and (max-width: 320px) {
+    width: 100%;
   }
 
 }

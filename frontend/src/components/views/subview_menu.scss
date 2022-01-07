@@ -6,7 +6,7 @@
   position: absolute;
   top: 51px; // 50px(height of top bar) + 1px(border-bottom of top bar)
 
-  width: 640px; // Remove padding 
+  width: 640px;
   height: calc(100vh - 51px); // To make top bar visible at all times
 
   @media screen and (max-width: 640px) {
