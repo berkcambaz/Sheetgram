@@ -5,7 +5,7 @@ import { Component_Icon_Send } from "../icons/icon_send";
 
 import { storePost, POST_ACTS } from "../../stores/store_post";
 
-import { detectClick } from "../../core/utility";
+import { detectClick, detectTouchStart, detectTouchEnd } from "../../core/utility";
 
 export const Component_SubView_PostCreate = lucid.component({
   attributes: function () { return { limit: 256 } },
@@ -19,7 +19,7 @@ export const Component_SubView_PostCreate = lucid.component({
       element.style.height = "0px";
       element.style.height = element.scrollHeight + "px";
       element.value = element.value.substr(0, this.attributes.limit);
-      this.setState({ length: element.value.length });
+      this.setState({ removeListener: this.state.removeListener, length: element.value.length });
     },
     post: function () {
       const element = this.refs["input"];
@@ -74,10 +74,7 @@ export const Component_SubView_PostCreate = lucid.component({
 
       setTimeout(() => {
         this.state.removeListener = detectClick(this.refs["post-create"],
-          (ev) => {
-
-          },
-          (ev) => { this.methods.cancel() }
+          (ev) => { }, (ev) => { ev.preventDefault(); this.methods.cancel(); }
         );
       }, 1);
     }

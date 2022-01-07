@@ -17,15 +17,15 @@ export function clampNumber(number) {
  */
 export function detectClick(dom, inside, outside) {
   const func = function (ev) {
-    if (dom.contains(ev.target)) return inside();
-    else return outside();
+    if (dom.contains(ev.target)) return inside(ev);
+    else return outside(ev);
   }
 
-  document.addEventListener("click", func);
-  document.addEventListener("touchstart", func);
+  document.body.addEventListener("click", func);
+  document.body.addEventListener("touchend", func);
 
   return () => {
-    document.removeEventListener("click", func);
-    document.removeEventListener("touchstart", func);
+    document.body.removeEventListener("click", func);
+    document.body.removeEventListener("touchend", func);
   };
 }
