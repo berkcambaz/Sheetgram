@@ -1,7 +1,7 @@
 @import "../styles/mixins";
 
 #app {
-
+  
   .app__top {
     position: fixed;
     height: 50px;
@@ -11,6 +11,8 @@
     
     top: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+
+    z-index: 1000;
 
     @media screen and (max-width: 640px) {
       width: 100%;
