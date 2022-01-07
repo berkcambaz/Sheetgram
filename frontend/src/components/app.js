@@ -1,6 +1,7 @@
 import { lucid } from "../libs/lucid";
 
 import { Component_SubView_Menu } from "./views/subview_menu";
+import { Component_SubView_PostCreate } from "./views/subview_postcreate";
 import { Component_Icon_Menu } from "./icons/icon_menu";
 import { Component_Icon_Pencil } from "./icons/icon_pencil";
 
@@ -15,6 +16,9 @@ export const Component_App = lucid.component({
         lucid.render(this.dom, Component_SubView_Menu, "app");
       else
         lucid.instance(Component_SubView_Menu, "app").attribute("class", "");
+    },
+    showPostCreate: function () {
+      lucid.render(this.dom, Component_SubView_PostCreate, "app");
     }
   },
   render: function () {
@@ -36,7 +40,7 @@ export const Component_App = lucid.component({
 
       lucid.render(this.refs["top"], Component_Icon_Pencil, "home", {
         class: "app__top__icon--right",
-        onclick: () => { }
+        onclick: () => { this.methods.showPostCreate() }
       });
     }
   },
