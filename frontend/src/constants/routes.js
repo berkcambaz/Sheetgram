@@ -13,7 +13,7 @@ export const ROUTES = {
   },
   USER: {
     path: "/user/([a-z0-9_]+)",
-    name: "User"
+    name: "Profile"
   },
   BOOKMARKS: {
     path: "/bookmarks",
