@@ -12,11 +12,11 @@ export const Component_View_Home = lucid.component({
   hooks: {
     connected: function () {
       const posts = storePost.getters[POST_GETTERS.NORMAL];
-      for (let i = 0; i < 10; ++i) {
-        lucid.render(this.dom, Component_Post, posts[1].postId,
+      for (let i = 0; i < posts.length; ++i) {
+        lucid.render(this.dom, Component_Post, posts[i].postId,
           {
-            post: posts[1],
-            user: storeUser.getters[USER_GETTERS.GET_USER_BY_ID](posts[1].userId)
+            post: posts[i],
+            user: storeUser.getters[USER_GETTERS.GET_USER_BY_ID](posts[i].userId)
           }
         );
       }

@@ -42,8 +42,6 @@ export const Component_App = lucid.component({
         class: "app__top__icon--right",
         onclick: () => { this.methods.showPostCreate() }
       });
-
-      this.methods.showPostCreate();
     }
   },
   watch: {
