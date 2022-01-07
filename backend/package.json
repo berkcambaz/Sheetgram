@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "prod": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "supervisor src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +15,6 @@
   },
   "devDependencies": {
     "@types/node": "^17.0.8",
-    "nodemon": "^2.0.15"
+    "supervisor": "^0.12.0"
   }
 }
