@@ -1,6 +1,11 @@
 @import "../components/app.scss";
 
+// Components
 @import "../components/common/post/post.scss";
 @import "../components/common/user/user.scss";
 
+// Effects
 @import "../components/common/blur/blur.scss";
+
+// Views
+@import "../components/views/subview_menu.scss";
