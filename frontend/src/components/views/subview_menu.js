@@ -2,7 +2,8 @@ import { lucid } from "../../libs/lucid";
 import { superpage } from "../../libs/superpage";
 
 import { Component_Icon_Search } from "../icons/icon_search";
-import { Component_Icon_Bookmark } from "../icons/icon_bookmark";
+import { Component_Icon_Home } from "../icons/icon_home";
+import { Component_Icon_Bookmarks } from "../icons/icon_bookmarks";
 import { Component_Icon_User } from "../icons/icon_user";
 import { Component_Icon_Users } from "../icons/icon_users";
 import { Component_Icon_Settings } from "../icons/icon_settings";
@@ -34,6 +35,10 @@ export const Component_SubView_Menu = lucid.component({
     },
     search: function (ev) {
       superpage.to("/user/" + this.refs["searchbar"].value);
+      this.methods.toggleTransition(this.attributes.class);
+    },
+    home: function (ev) {
+      superpage.to("/home");
       this.methods.toggleTransition(this.attributes.class);
     },
     profile: function (ev) {
@@ -75,6 +80,7 @@ export const Component_SubView_Menu = lucid.component({
             </div>
           </div>
           <div class="menu__section">
+            <div class="menu__item" lucid-ref="home" onclick="{{methods.home}}"><div>Home</div></div>
             <div class="menu__item" lucid-ref="profile" onclick="{{methods.profile}}"><div>Profile</div></div>
             <div class="menu__item" lucid-ref="bookmarks" onclick="{{methods.bookmarks}}"><div>Bookmarks</div></div>
           </div>
@@ -95,8 +101,9 @@ export const Component_SubView_Menu = lucid.component({
       lucid.render(this.refs["search"], Component_Icon_Search, "menu", {
         onclick: (ev) => { this.methods.search(ev); }
       }, { first: true });
+      lucid.render(this.refs["home"], Component_Icon_Home, "menu", undefined, { first: true });
       lucid.render(this.refs["profile"], Component_Icon_User, "menu", undefined, { first: true });
-      lucid.render(this.refs["bookmarks"], Component_Icon_Bookmark, "menu", undefined, { first: true });
+      lucid.render(this.refs["bookmarks"], Component_Icon_Bookmarks, "menu", undefined, { first: true });
       lucid.render(this.refs["settings"], Component_Icon_Settings, "menu", undefined, { first: true });
       lucid.render(this.refs["about"], Component_Icon_Info, "menu", undefined, { first: true });
       lucid.render(this.refs["accounts"], Component_Icon_Users, "menu", undefined, { first: true });
