@@ -1,4 +1,5 @@
 import { lucid } from "../../libs/lucid";
+import { superpage } from "../../libs/superpage";
 
 import { Component_Icon_Search } from "../icons/icon_search";
 import { Component_Icon_Bookmark } from "../icons/icon_bookmark";
@@ -15,7 +16,7 @@ import { clampNumber } from "../../core/utility";
 export const Component_SubView_Menu = lucid.component({
   attributes: function () { return { class: "", user: storeUser.state.main } },
   methods: {
-    transitionend: function () {
+    transitionend: function (ev) {
       if (this.attributes.class === "transition__slide--left") lucid.remove(this.id, this.key);
     },
     getFollowerCount: function () {
@@ -23,6 +24,9 @@ export const Component_SubView_Menu = lucid.component({
     },
     getFollowingCount: function () {
       return clampNumber(this.attributes.user.following);
+    },
+    search: function (ev) {
+      superpage.to("/user/" + this.refs["searchbar"].value);
     }
   },
   render: function () {
@@ -39,7 +43,7 @@ export const Component_SubView_Menu = lucid.component({
           </div>
           <div class="menu__section">
             <div class="menu__item" lucid-ref="search">
-              <input class="menu__search" type="text" placeholder="Search..." spellcheck="false" autocomplete="false">
+              <input class="menu__search" lucid-ref="searchbar" type="text" placeholder="Search..." spellcheck="false" autocomplete="false">
             </div>
           </div>
           <div class="menu__section">
@@ -60,7 +64,9 @@ export const Component_SubView_Menu = lucid.component({
   },
   hooks: {
     connected: function () {
-      lucid.render(this.refs["search"], Component_Icon_Search, "menu", undefined, { first: true });
+      lucid.render(this.refs["search"], Component_Icon_Search, "menu", {
+        onclick: (ev) => { this.methods.search(ev); }
+      }, { first: true });
       lucid.render(this.refs["profile"], Component_Icon_User, "menu", undefined, { first: true });
       lucid.render(this.refs["bookmarks"], Component_Icon_Bookmark, "menu", undefined, { first: true });
       lucid.render(this.refs["settings"], Component_Icon_Settings, "menu", undefined, { first: true });

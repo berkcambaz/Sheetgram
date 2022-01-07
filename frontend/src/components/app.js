@@ -14,7 +14,6 @@ export const Component_App = lucid.component({
         lucid.render(this.dom, Component_SubView_Menu, "app");
       else
         lucid.instance(Component_SubView_Menu, "app").attribute("class", "");
-
     }
   },
   render: function () {
