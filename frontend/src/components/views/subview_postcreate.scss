@@ -1,17 +1,51 @@
+@import "../../styles/mixins";
+
 .post-create {
 
   position: fixed;
-  top: 51px; // 50px(height of top bar) + 1px(border-bottom of top bar)
+  left: 50%;
+  top: 0%;
+  transform: translateX(-50%);
 
   width: 320px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 50px + 1px;
 
   z-index: 1001;
   background-color: #ffffff;
+  border-radius: 15px;
 
   @media screen and (max-width: 320px) {
     width: 100%;
+  }
+
+  .post-create__container {
+    padding: 20px;
+  }
+
+  .post-create__input {
+    @include default_input();
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .post-create__bottom {
+    display: flex;
+    align-items: center;
+  }
+
+  .post-create__icon {
+    width: 30px;
+    height: 30px;
+    
+    cursor: pointer;
+
+    &.top {
+      margin: -5px 0 0 -5px;
+    }
+
+    &.bottom {
+      margin-right: 5px;
+    }
   }
 
 }

@@ -18,7 +18,7 @@ export const Component_App = lucid.component({
         lucid.instance(Component_SubView_Menu, "app").attribute("class", "");
     },
     showPostCreate: function () {
-      lucid.render(this.dom, Component_SubView_PostCreate, "app");
+      lucid.render(this.refs["content"], Component_SubView_PostCreate, "app");
     }
   },
   render: function () {
