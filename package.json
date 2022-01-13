@@ -4,7 +4,6 @@
   "description": "",
   "scripts": {
     "start": "node ./backend/src/index.js",
-    "build": "cd ./frontend && webpack",
     "backenddev": "cd ./backend && npm run dev",
     "frontenddev": "cd ./frontend && npm run dev",
     "dev": "npm-run-all --parallel backenddev frontenddev"
