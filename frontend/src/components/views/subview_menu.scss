@@ -3,17 +3,16 @@
 
 .menu {
   
-  position: absolute;
+  position: fixed;
   top: 51px; // 50px(height of top bar) + 1px(border-bottom of top bar)
 
   width: 640px;
   height: 100%; // To make top bar visible at all times
+  overflow-y: scroll;
 
   @media screen and (max-width: 640px) {
     width: 100%;
   }
-  
-  overflow: hidden;
 
   .menu__container {
     width: calc(100% - 25px * 2); 
