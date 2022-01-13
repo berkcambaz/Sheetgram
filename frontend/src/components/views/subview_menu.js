@@ -25,7 +25,7 @@ export const Component_SubView_Menu = lucid.component({
         case "transition__slide--right": this.attributes.class = "transition__slide--left"; break;
         case "transition__slide--left": this.attributes.class = "transition__slide--right"; break;
       }
-      this.setState();
+      this.setState(this);
     },
     getFollowerCount: function () {
       return clampNumber(this.attributes.user.followers);
@@ -116,7 +116,7 @@ export const Component_SubView_Menu = lucid.component({
 
       setTimeout(() => {
         this.attributes.class = "transition__slide--right";
-        this.setState();
+        this.setState(this);
       }, 1);
     }
   },

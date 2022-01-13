@@ -35,12 +35,12 @@ export const Component_Post = lucid.component({
     like: function () {
       storePost.commit(POST_ACTS.LIKE_POST, this.attributes.post);
       lucid.instance(Component_Icon_Like, this.key).attribute("class", this.methods.getLikeClass());
-      this.setState();
+      this.setState(this);
     },
     bookmark: function () {
       storePost.commit(POST_ACTS.BOOKMARK_POST, this.attributes.post);
       lucid.instance(Component_Icon_Bookmark, this.key).attribute("class", this.methods.getBookmarkClass());
-      this.setState();
+      this.setState(this);
     }
   },
   render: function () {
