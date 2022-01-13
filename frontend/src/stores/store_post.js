@@ -22,7 +22,7 @@ export const storePost = new Luckt({
       {
         userId: 0,
         postId: 0,
-        date: new Date(),
+        date: new Date(Date.now() - 1000 * 60 * 10),
         content: "Hello, world!",
         likeCount: 9631,
         liked: true,
@@ -31,9 +31,36 @@ export const storePost = new Luckt({
       {
         userId: 1,
         postId: 1,
-        date: new Date(),
+        date: new Date(Date.now() - 1000 * 60 * 9),
         content: "bir otodidakt olarak, okul sistemiyle olan savaşımdan vazgeçiyorum. bundan sonra felsefe, ekonomi, bilgisayar bilimi, sanat gibi konular dışında anlamsız bir çaba göstermeyeceğim.",
         likeCount: 3169,
+        liked: true,
+        bookmarked: true
+      },
+      {
+        userId: 2,
+        postId: 2,
+        date: new Date(Date.now() - 1000 * 60 * 8),
+        content: "Berk dünyanın en iyi arkadaşı ileride Steve Jobs olacak.",
+        likeCount: 4203169,
+        liked: true,
+        bookmarked: true
+      },
+      {
+        userId: 3,
+        postId: 3,
+        date: new Date(Date.now() - 1000 * 60 * 7),
+        content: "Sonunda lan sonundaa",
+        likeCount: 1313131,
+        liked: true,
+        bookmarked: true
+      },
+      {
+        userId: 4,
+        postId: 4,
+        date: new Date(Date.now() - 1000 * 60 * 6),
+        content: "515",
+        likeCount: 515000000,
         liked: true,
         bookmarked: true
       }

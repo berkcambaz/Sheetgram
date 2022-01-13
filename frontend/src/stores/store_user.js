@@ -25,6 +25,33 @@ export const storeUser = new Luckt({
         date: new Date(),
         followers: 3169420,
         following: 3169420
+      },
+      {
+        id: 2,
+        usertag: "muhammedhasan",
+        username: "Muhammed Hasan",
+        bio: `en iyi arkadaşı dünyanın berk`,
+        date: new Date(),
+        followers: 4203169,
+        following: 4203169
+      },
+      {
+        id: 3,
+        usertag: "shafuck",
+        username: "Shafuck",
+        bio: `professional valorant player for @teamliquid`,
+        date: new Date(),
+        followers: 4203169,
+        following: 4203169
+      },
+      {
+        id: 4,
+        usertag: "skystars",
+        username: "Skystars",
+        bio: `helo turks`,
+        date: new Date(),
+        followers: 515,
+        following: 515
       }
     ]
   },

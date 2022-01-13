@@ -33,6 +33,9 @@ export const Component_SubView_Menu = lucid.component({
     getFollowingCount: function () {
       return clampNumber(this.attributes.user.following);
     },
+    onkeydown: function (ev) {
+      if (ev.code === "Enter") this.methods.search();
+    },
     search: function (ev) {
       superpage.to("/user/" + this.refs["searchbar"].value);
       this.methods.toggleTransition(this.attributes.class);
@@ -81,7 +84,7 @@ export const Component_SubView_Menu = lucid.component({
           </div>
           <div class="menu__section">
             <div class="menu__item" lucid-ref="search">
-              <input class="menu__search" lucid-ref="searchbar" type="text" placeholder="Search..." spellcheck="false" autocomplete="false">
+              <input class="menu__search" lucid-ref="searchbar" type="text" placeholder="Search..." spellcheck="false" autocomplete="false" onkeydown="{{methods.onkeydown}}">
             </div>
           </div>
           <div class="menu__section">

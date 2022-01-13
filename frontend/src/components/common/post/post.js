@@ -55,7 +55,7 @@ export const Component_Post = lucid.component({
         </div>
         <div class="post__content">{{attributes.post.content}}</div>
         <div class="post__bottom" lucid-ref="bottom">
-          <span class="post__count">{{attributes.post.likeCount}}</span>
+          <span class="post__count" title="{{attributes.post.likeCount}} likes">{{methods.getLikeCount}}</span>
         </div>
       </div>
     `;
