@@ -1,8 +1,7 @@
 import { lucid } from "../../../libs/lucid";
 import { superpage } from "../../../libs/superpage";
 
-import { Component_Icon_Like } from "../../icons/icon_like";
-import { Component_Icon_Bookmark } from "../../icons/icon_bookmark";
+import { COMPONENT_ICON } from "../icon_factory";
 
 import { storePost, POST_ACTS } from "../../../stores/store_post";
 
@@ -34,12 +33,12 @@ export const Component_Post = lucid.component({
     },
     like: function () {
       storePost.commit(POST_ACTS.LIKE_POST, this.attributes.post);
-      lucid.instance(Component_Icon_Like, this.key).attribute("class", this.methods.getLikeClass());
+      lucid.instance(COMPONENT_ICON.LIKE, this.key).attribute("class", this.methods.getLikeClass());
       this.setState(this);
     },
     bookmark: function () {
       storePost.commit(POST_ACTS.BOOKMARK_POST, this.attributes.post);
-      lucid.instance(Component_Icon_Bookmark, this.key).attribute("class", this.methods.getBookmarkClass());
+      lucid.instance(COMPONENT_ICON.BOOKMARK, this.key).attribute("class", this.methods.getBookmarkClass());
       this.setState(this);
     }
   },
@@ -62,8 +61,8 @@ export const Component_Post = lucid.component({
   },
   hooks: {
     connected: function () {
-      lucid.render(this.refs["bottom"], Component_Icon_Like, this.key, { class: this.methods.getLikeClass(), onclick: this.methods.like });
-      lucid.render(this.refs["bottom"], Component_Icon_Bookmark, this.key, { class: this.methods.getBookmarkClass(), onclick: this.methods.bookmark });
+      lucid.render(this.refs["bottom"], COMPONENT_ICON.LIKE, this.key, { class: this.methods.getLikeClass(), onclick: this.methods.like });
+      lucid.render(this.refs["bottom"], COMPONENT_ICON.BOOKMARK, this.key, { class: this.methods.getBookmarkClass(), onclick: this.methods.bookmark });
     }
   }
 });

@@ -1,14 +1,7 @@
 import { lucid } from "../../libs/lucid";
 import { superpage } from "../../libs/superpage";
 
-import { Component_Icon_Search } from "../icons/icon_search";
-import { Component_Icon_Home } from "../icons/icon_home";
-import { Component_Icon_Bookmarks } from "../icons/icon_bookmarks";
-import { Component_Icon_User } from "../icons/icon_user";
-import { Component_Icon_Users } from "../icons/icon_users";
-import { Component_Icon_Settings } from "../icons/icon_settings";
-import { Component_Icon_Info } from "../icons/icon_info";
-import { Component_Icon_Logout } from "../icons/icon_logout";
+import { COMPONENT_ICON } from "../common/icon_factory";
 
 import { storeUser } from "../../stores/store_user";
 
@@ -106,16 +99,16 @@ export const Component_SubView_Menu = lucid.component({
   },
   hooks: {
     connected: function () {
-      lucid.render(this.refs["search"], Component_Icon_Search, "menu", {
+      lucid.render(this.refs["search"], COMPONENT_ICON.SEARCH, "menu", {
         onclick: (ev) => { this.methods.search(ev); }
       }, { first: true });
-      lucid.render(this.refs["home"], Component_Icon_Home, "menu", undefined, { first: true });
-      lucid.render(this.refs["profile"], Component_Icon_User, "menu", undefined, { first: true });
-      lucid.render(this.refs["bookmarks"], Component_Icon_Bookmarks, "menu", undefined, { first: true });
-      lucid.render(this.refs["settings"], Component_Icon_Settings, "menu", undefined, { first: true });
-      lucid.render(this.refs["about"], Component_Icon_Info, "menu", undefined, { first: true });
-      lucid.render(this.refs["accounts"], Component_Icon_Users, "menu", undefined, { first: true });
-      lucid.render(this.refs["logout"], Component_Icon_Logout, "menu", undefined, { first: true });
+      lucid.render(this.refs["home"], COMPONENT_ICON.HOME, "menu", undefined, { first: true });
+      lucid.render(this.refs["profile"], COMPONENT_ICON.USER, "menu", undefined, { first: true });
+      lucid.render(this.refs["bookmarks"], COMPONENT_ICON.BOOKMARKS, "menu", undefined, { first: true });
+      lucid.render(this.refs["settings"], COMPONENT_ICON.SETTINGS, "menu", undefined, { first: true });
+      lucid.render(this.refs["about"], COMPONENT_ICON.INFO, "menu", undefined, { first: true });
+      lucid.render(this.refs["accounts"], COMPONENT_ICON.USERS, "menu", undefined, { first: true });
+      lucid.render(this.refs["logout"], COMPONENT_ICON.LOGOUT, "menu", undefined, { first: true });
 
       setTimeout(() => {
         this.attributes.class = "transition__slide--right";

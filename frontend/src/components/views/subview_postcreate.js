@@ -1,7 +1,6 @@
 import { lucid } from "../../libs/lucid";
 
-import { Component_Icon_X } from "../icons/icon_x";
-import { Component_Icon_Send } from "../icons/icon_send";
+import { COMPONENT_ICON } from "../common/icon_factory";
 
 import { storePost, POST_ACTS } from "../../stores/store_post";
 
@@ -62,12 +61,12 @@ export const Component_SubView_PostCreate = lucid.component({
     connected: function () {
       this.methods.oninput();
 
-      lucid.render(this.refs["container"], Component_Icon_X, this.key, {
+      lucid.render(this.refs["container"], COMPONENT_ICON.X, this.key, {
         class: "post-create__icon top",
         onclick: () => { this.methods.cancel() }
       }, { first: true });
 
-      lucid.render(this.refs["bottom"], Component_Icon_Send, this.key, {
+      lucid.render(this.refs["bottom"], COMPONENT_ICON.SEND, this.key, {
         class: "post-create__icon bottom",
         onclick: () => { this.methods.post() }
       }, { first: true });

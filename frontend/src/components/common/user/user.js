@@ -1,6 +1,6 @@
 import { lucid } from "../../../libs/lucid";
 
-import { Component_Icon_Calendar } from "../../icons/icon_calendar";
+import { COMPONENT_ICON } from "../../common/icon_factory";
 
 import { storePost, POST_GETTERS } from "../../../stores/store_post";
 import { storeUser, USER_GETTERS } from "../../../stores/store_user";
@@ -39,7 +39,7 @@ export const Component_User = lucid.component({
   },
   hooks: {
     connected: function () {
-      lucid.render(this.refs["date"], Component_Icon_Calendar, 0, undefined, { first: true });
+      lucid.render(this.refs["date"], COMPONENT_ICON.CALENDAR, 0, undefined, { first: true });
     }
   }
 });
