@@ -8,15 +8,18 @@ import { COMPONENT_ICON } from "./common/icon_factory";
 import { getViewComponent } from "../core/component_utility";
 
 export const Component_App = lucid.component({
-  attributes: function () { return { route: undefined, args: undefined, hidden: false, menu: false }; },
+  attributes: function () { return { route: undefined, args: undefined, hidden: false, menu: false, scroll: 0 }; },
   methods: {
     getRouteName: function () { return this.attributes.route === undefined ? "" : this.attributes.route.name },
-    getClassHidden: function () { return this.attributes.hidden ? "hidden" : ""; },
+    getClass: function () { return this.attributes.hidden ? "hidden" : ""; },
     toggleMenu: function () {
-      if (lucid.instance(Component_SubView_Menu, "app") === undefined)
+      if (lucid.instance(Component_SubView_Menu, "app") === undefined) {
         lucid.render(this.dom, Component_SubView_Menu, "app");
-      else
+        lucid.instance(Component_App, this.key).attribute("scroll", window.scrollY);
+      }
+      else {
         lucid.instance(Component_SubView_Menu, "app").attribute("class", "");
+      }
     },
     showPostCreate: function () {
       lucid.render(this.refs["content"], Component_SubView_PostCreate, "app");
@@ -28,7 +31,7 @@ export const Component_App = lucid.component({
         <div class="app__top" lucid-ref="top">
           <div class="app__top__title">{{methods.getRouteName}}</div>
         </div>
-        <div class="app__content {{methods.getClassHidden}}" lucid-ref="content"></div>
+        <div class="app__content {{methods.getClass}}" lucid-ref="content"></div>
       </div>
     `;
   },
@@ -72,6 +75,11 @@ export const Component_App = lucid.component({
     },
     hidden: function () {
       this.setState(this.state);
+    },
+    scroll: function (oldScroll, newScroll) {
+      console.log(oldScroll);
+      console.log(newScroll);
+      window.scrollTo({ top: oldScroll });
     }
   }
 });

@@ -16,7 +16,8 @@ body {
 }
 
 .hidden {
-  visibility: hidden;
+  //visibility: hidden;
+  display: none;
 }
 
 .effect--blur {

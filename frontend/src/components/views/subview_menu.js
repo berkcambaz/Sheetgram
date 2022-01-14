@@ -23,12 +23,16 @@ export const Component_SubView_Menu = lucid.component({
         case "transition__slide--right":
           this.attributes.class = "transition__slide--left";
           lucid.instance(Component_App, 0).attribute("hidden", false);
+          lucid.instance(Component_App, 0).attribute("scroll", 0);
           break;
         case "transition__slide--left":
           this.attributes.class = "transition__slide--right";
           break;
       }
       this.setState(this);
+    },
+    getStyle: function () {
+      return this.attributes.class === "transition__slide--right" ? "position: absolute !important;" : "";
     },
     getFollowerCount: function () {
       return clampNumber(this.attributes.user.followers);
@@ -75,7 +79,7 @@ export const Component_SubView_Menu = lucid.component({
   },
   render: function () {
     return `
-      <div class="menu">
+      <div class="menu" style="{{methods.getStyle}}">
         <div class="menu__container transition__slide {{attributes.class}}" ontransitionend="{{methods.transitionend}}">
           <div class="menu__section">
             <div class="menu__username">{{attributes.user.username}}</div>

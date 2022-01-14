@@ -49,10 +49,15 @@
   }
 
   .app__content {
-    position: relative;
+    position: absolute;
     top: 51px;
     padding: 0 25px;
+    width: 640px - 50px;
     height: calc(100vh - 51px);
+
+    @media screen and (max-width: (640px - 50px)) {
+      width: calc(100% - 50px);
+    }
   }
 
 }
