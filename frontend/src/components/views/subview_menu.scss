@@ -8,7 +8,6 @@
 
   width: 640px;
   height: calc(100vh - 51px);
-  overflow-y: scroll;
 
   @media screen and (max-width: 640px) {
     width: 100%;
@@ -18,6 +17,7 @@
     width: calc(100% - 25px * 2); 
     height: 100%; 
     padding: 0 25px;
+    overflow-y: scroll;
     
     background-color: #ffffff;
     z-index: 100;
