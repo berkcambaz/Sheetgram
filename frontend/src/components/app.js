@@ -14,6 +14,10 @@ export const Component_App = lucid.component({
     getRouteName: function () { return this.attributes.route === undefined ? "" : this.attributes.route.name },
     showPostCreate: function () {
       lucid.render(this.refs["content"], Component_SubView_PostCreate, "app");
+    },
+    getBottomBarClass: function () {
+      if (this.attributes.route)
+        return this.attributes.route.properties.hideBottomBar ? "hidden" : "";
     }
   },
   render: function () {
@@ -23,7 +27,7 @@ export const Component_App = lucid.component({
           <div class="app__top__title">{{methods.getRouteName}}</div>
         </div>
         <div class="app__content" lucid-ref="content"></div>
-        <div class="app__bottom" lucid-ref="bottom"></div>
+        <div class="app__bottom {{methods.getBottomBarClass}}" lucid-ref="bottom"></div>
       </div>
     `;
   },

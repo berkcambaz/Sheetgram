@@ -1,0 +1,20 @@
+@import "../../styles/mixins";
+
+.settings {
+
+  .settings__section {
+    padding: 10px 0;
+    background-color: #ffffff;
+
+    @include border_between();
+  }
+
+  .settings__item {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+
+    cursor: pointer;
+  }
+
+}
