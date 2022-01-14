@@ -8,9 +8,10 @@ import { COMPONENT_ICON } from "./common/icon_factory";
 import { getViewComponent } from "../core/component_utility";
 
 export const Component_App = lucid.component({
-  attributes: function () { return { route: undefined, args: undefined, menu: false }; },
+  attributes: function () { return { route: undefined, args: undefined, hidden: false, menu: false }; },
   methods: {
     getRouteName: function () { return this.attributes.route === undefined ? "" : this.attributes.route.name },
+    getClassHidden: function () { return this.attributes.hidden ? "hidden" : ""; },
     toggleMenu: function () {
       if (lucid.instance(Component_SubView_Menu, "app") === undefined)
         lucid.render(this.dom, Component_SubView_Menu, "app");
@@ -27,7 +28,7 @@ export const Component_App = lucid.component({
         <div class="app__top" lucid-ref="top">
           <div class="app__top__title">{{methods.getRouteName}}</div>
         </div>
-        <div class="app__content" lucid-ref="content"></div>
+        <div class="app__content {{methods.getClassHidden}}" lucid-ref="content"></div>
       </div>
     `;
   },
@@ -68,6 +69,9 @@ export const Component_App = lucid.component({
 
       if (oldRoute && oldRoute.name) lucid.remove(getViewComponent(oldRoute.name), 0);
       lucid.render(this.refs["content"], getViewComponent(newRoute.name), 0, { args: this.attributes.args });
+    },
+    hidden: function () {
+      this.setState(this.state);
     }
   }
 });

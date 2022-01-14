@@ -1,6 +1,7 @@
 import { lucid } from "../../libs/lucid";
 import { superpage } from "../../libs/superpage";
 
+import { Component_App } from "../app";
 import { COMPONENT_ICON } from "../common/icon_factory";
 
 import { storeUser } from "../../stores/store_user";
@@ -11,12 +12,21 @@ export const Component_SubView_Menu = lucid.component({
   attributes: function () { return { class: "", user: storeUser.state.main } },
   methods: {
     transitionend: function (ev) {
-      if (this.attributes.class === "transition__slide--left") lucid.remove(this.id, this.key);
+      if (this.attributes.class === "transition__slide--left") {
+        lucid.remove(this.id, this.key);
+      } else {
+        lucid.instance(Component_App, 0).attribute("hidden", true);
+      }
     },
     toggleTransition: function (oldClass) {
       switch (oldClass) {
-        case "transition__slide--right": this.attributes.class = "transition__slide--left"; break;
-        case "transition__slide--left": this.attributes.class = "transition__slide--right"; break;
+        case "transition__slide--right":
+          this.attributes.class = "transition__slide--left";
+          lucid.instance(Component_App, 0).attribute("hidden", false);
+          break;
+        case "transition__slide--left":
+          this.attributes.class = "transition__slide--right";
+          break;
       }
       this.setState(this);
     },
