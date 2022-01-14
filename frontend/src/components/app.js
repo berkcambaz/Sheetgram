@@ -1,26 +1,17 @@
 import { lucid } from "../libs/lucid";
 
-import { Component_SubView_Menu } from "./views/subview_menu";
 import { Component_SubView_PostCreate } from "./views/subview_postcreate";
 
 import { COMPONENT_ICON } from "./common/icon_factory";
 
-import { getViewComponent } from "../core/component_utility";
+import { getViewComponent, getViewIcon } from "../core/component_utility";
+import { superpage } from "../libs/superpage";
+import { storeUser } from "../stores/store_user";
 
 export const Component_App = lucid.component({
-  attributes: function () { return { route: undefined, args: undefined, hidden: false, menu: false, scroll: 0 }; },
+  attributes: function () { return { route: undefined, args: undefined, menu: false }; },
   methods: {
     getRouteName: function () { return this.attributes.route === undefined ? "" : this.attributes.route.name },
-    getClass: function () { return this.attributes.hidden ? "hidden" : ""; },
-    toggleMenu: function () {
-      if (lucid.instance(Component_SubView_Menu, "app") === undefined) {
-        lucid.render(this.dom, Component_SubView_Menu, "app");
-        lucid.instance(Component_App, this.key).attribute("scroll", window.scrollY);
-      }
-      else {
-        lucid.instance(Component_SubView_Menu, "app").attribute("class", "");
-      }
-    },
     showPostCreate: function () {
       lucid.render(this.refs["content"], Component_SubView_PostCreate, "app");
     }
@@ -31,24 +22,36 @@ export const Component_App = lucid.component({
         <div class="app__top" lucid-ref="top">
           <div class="app__top__title">{{methods.getRouteName}}</div>
         </div>
-        <div class="app__content {{methods.getClass}}" lucid-ref="content"></div>
+        <div class="app__content" lucid-ref="content"></div>
+        <div class="app__bottom" lucid-ref="bottom"></div>
       </div>
     `;
   },
   hooks: {
     connected: function () {
-      lucid.render(this.refs["top"], COMPONENT_ICON.LOGIN, "home", {
-        class: "app__top__icon--left hidden"
-      }, { first: true });
-
-      lucid.render(this.refs["top"], COMPONENT_ICON.MENU, "home", {
-        class: "app__top__icon--left hidden",
-        onclick: () => { this.methods.toggleMenu() }
-      }, { first: true });
-
-      lucid.render(this.refs["top"], COMPONENT_ICON.PENCIL, "home", {
+      lucid.render(this.refs["top"], COMPONENT_ICON.PENCIL, "app", {
         class: "app__top__icon--right hidden",
         onclick: () => { this.methods.showPostCreate() }
+      });
+
+      lucid.render(this.refs["bottom"], COMPONENT_ICON.HOME, "app", {
+        class: "app__bottom__icon",
+        onclick: () => { superpage.to("/home"); }
+      });
+
+      lucid.render(this.refs["bottom"], COMPONENT_ICON.BOOKMARKS, "app", {
+        class: "app__bottom__icon",
+        onclick: () => { superpage.to("/bookmarks"); }
+      });
+
+      lucid.render(this.refs["bottom"], COMPONENT_ICON.USER, "app", {
+        class: "app__bottom__icon",
+        onclick: () => { superpage.to("/user/" + storeUser.state.main.usertag); }
+      });
+
+      lucid.render(this.refs["bottom"], COMPONENT_ICON.SETTINGS, "app", {
+        class: "app__bottom__icon",
+        onclick: () => { superpage.to("/settings"); }
       });
     }
   },
@@ -59,27 +62,20 @@ export const Component_App = lucid.component({
      * @param {import("../constants/routes").Route} newRoute 
      */
     route: function (oldRoute, newRoute) {
-      if (newRoute.properties.showLogin) lucid.instance(COMPONENT_ICON.LOGIN, "home").attribute("class", "app__top__icon--left");
-      else lucid.instance(COMPONENT_ICON.LOGIN, "home").attribute("class", "app__top__icon--left hidden");
-
-      if (newRoute.properties.hideMenu) lucid.instance(COMPONENT_ICON.MENU, "home").attribute("class", "app__top__icon--left hidden");
-      else lucid.instance(COMPONENT_ICON.MENU, "home").attribute("class", "app__top__icon--left");
-
-      if (newRoute.properties.showPencil) lucid.instance(COMPONENT_ICON.PENCIL, "home").attribute("class", "app__top__icon--right");
-      else lucid.instance(COMPONENT_ICON.PENCIL, "home").attribute("class", "app__top__icon--right hidden");
+      if (newRoute.properties.showPencil) lucid.instance(COMPONENT_ICON.PENCIL, "app").attribute("class", "app__top__icon--right");
+      else lucid.instance(COMPONENT_ICON.PENCIL, "app").attribute("class", "app__top__icon--right hidden");
 
       this.setState(this.state);
 
-      if (oldRoute && oldRoute.name) lucid.remove(getViewComponent(oldRoute.name), 0);
+      if (oldRoute && oldRoute.name) {
+        lucid.remove(getViewComponent(oldRoute.name), 0);
+        const oldIcon = getViewIcon(oldRoute.name);
+        if (oldIcon) lucid.instance(oldIcon, "app").attribute("class", "app__bottom__icon");
+      }
+
       lucid.render(this.refs["content"], getViewComponent(newRoute.name), 0, { args: this.attributes.args });
-    },
-    hidden: function () {
-      this.setState(this.state);
-    },
-    scroll: function (oldScroll, newScroll) {
-      console.log(oldScroll);
-      console.log(newScroll);
-      window.scrollTo({ top: oldScroll });
+      const newIcon = getViewIcon(newRoute.name);
+      if (newIcon) lucid.instance(newIcon, "app").attribute("class", "app__bottom__icon enabled");
     }
   }
 });
