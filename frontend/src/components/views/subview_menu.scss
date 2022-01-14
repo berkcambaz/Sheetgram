@@ -8,7 +8,7 @@
 
   width: 640px;
   height: calc(100vh - 51px);
-  //height: 100%;
+  overflow-y: scroll;
 
   @media screen and (max-width: 640px) {
     width: 100%;
