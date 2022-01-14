@@ -7,14 +7,14 @@
   top: 51px; // 50px(height of top bar) + 1px(border-bottom of top bar)
 
   width: 640px;
-  height: 100%; // To make top bar visible at all times
-  overflow-y: scroll;
+  height: calc(100vh - 51px);
+  //height: 100%;
 
   @media screen and (max-width: 640px) {
     width: 100%;
   }
 
-  .menu__container {
+  .menu__container {  
     width: calc(100% - 25px * 2); 
     height: 100%; 
     padding: 0 25px;
@@ -25,6 +25,7 @@
   
   .menu__section {
     padding: 10px 0;
+    background-color: #ffffff;
 
     @include border_between();
   }
