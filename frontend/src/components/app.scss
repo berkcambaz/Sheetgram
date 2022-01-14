@@ -17,12 +17,17 @@
     }
 
     .app__top__title {
-      display: inline-block;
-
+      text-align: center;
       font-size: 25px;
       font-weight: bold;
 
       line-height: 50px;
+    }
+
+    .app__top__icon--left {
+      @include app_top_icon();
+
+      left: 0;
     }
 
     .app__top__icon--right {

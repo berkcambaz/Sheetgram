@@ -9,7 +9,7 @@ import { superpage } from "../libs/superpage";
 import { storeUser } from "../stores/store_user";
 
 export const Component_App = lucid.component({
-  attributes: function () { return { route: undefined, args: undefined, menu: false }; },
+  attributes: function () { return { route: undefined, args: undefined, menu: false, backCallback: 0 }; },
   methods: {
     getRouteName: function () { return this.attributes.route === undefined ? "" : this.attributes.route.name },
     showPostCreate: function () {
@@ -29,6 +29,10 @@ export const Component_App = lucid.component({
   },
   hooks: {
     connected: function () {
+      lucid.render(this.refs["top"], COMPONENT_ICON.ARROW_LEFT, "app", {
+        class: "app__top__icon--left hidden",
+        onclick: () => { if (this.attributes.backCallback) this.attributes.backCallback(); }
+      });
       lucid.render(this.refs["top"], COMPONENT_ICON.PENCIL, "app", {
         class: "app__top__icon--right hidden",
         onclick: () => { this.methods.showPostCreate() }
@@ -76,6 +80,10 @@ export const Component_App = lucid.component({
       lucid.render(this.refs["content"], getViewComponent(newRoute.name), 0, { args: this.attributes.args });
       const newIcon = getViewIcon(newRoute.name);
       if (newIcon) lucid.instance(newIcon, "app").attribute("class", "app__bottom__icon enabled");
+    },
+    backCallback: function () {
+      lucid.instance(COMPONENT_ICON.ARROW_LEFT, "app")
+        .attribute("class", "app__top__icon--left " + this.attributes.backCallback ? "" : "disabled");
     }
   }
 });
