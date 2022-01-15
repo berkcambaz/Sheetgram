@@ -12,7 +12,7 @@ async function userById(id, atrs) {
   `;
 
   const res = await query(sql, [id]);
-  if (res.err) return { err: ERROR.USER_BY_ID_FAIL };
+  if (res.err || res.results.length === 0) return { err: ERROR.USER_BY_ID_FAIL };
   return res.results[0];
 }
 
@@ -24,7 +24,7 @@ async function userByTag(tag, atrs) {
   `;
 
   const res = await query(sql, [tag]);
-  if (res.err) return { err: ERROR.USER_BY_TAG_FAIL };
+  if (res.err || res.results.length === 0) return { err: ERROR.USER_BY_TAG_FAIL };
   return res.results[0];
 }
 
@@ -37,9 +37,8 @@ async function userAuth(usertag, password) {
   `;
 
   const res = await query(sql, [usertag]);
-  if (res.err) return { err: ERROR.USER_AUTH_FAIL };
-  return bcrypt.compareSync(password, res.results[0].password) ?
-    //return String.fromCharCode(...res.results[0].password) === password ?
+  if (res.err || res.results.length === 0) return { err: ERROR.USER_AUTH_FAIL };
+  return bcrypt.compareSync(password, String.fromCharCode(...res.results[0].password)) ?
     { id: res.results[0].id } : { err: ERROR.USER_AUTH_FAIL };
 }
 

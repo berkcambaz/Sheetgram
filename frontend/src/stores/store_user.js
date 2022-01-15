@@ -26,17 +26,26 @@ export const USER_GETTERS = {
 export const storeUser = new Luckt({
   state: {
     main: undefined,
-    users: undefined
+    users: []
   },
   acts: {
     [USER_ACTS.AUTH]: function (state, res) {
+      console.log(res);
       if (!res.err) state.main = res;
     },
-    [USER_ACTS.LOGIN]: function (state) {
-
+    [USER_ACTS.LOGIN]: function (state, res) {
+      console.log(res);
+      if (!res.err) {
+        state.main = res;
+        superpage.to("/home");
+      }
     },
-    [USER_ACTS.SIGNUP]: function (state) {
-
+    [USER_ACTS.SIGNUP]: function (state, res) {
+      console.log(res);
+      if (!res.err) {
+        state.main = res;
+        superpage.to("/home");
+      }
     }
   },
   futures: {
@@ -44,11 +53,13 @@ export const storeUser = new Luckt({
       const res = await api(API_CODE.AUTH);
       commit(USER_ACTS.AUTH, res);
     },
-    [USER_FUTURES.LOGIN]: function (commit, usertag, password) {
-
+    [USER_FUTURES.LOGIN]: async function (commit, usertag, password) {
+      const res = await api(API_CODE.LOGIN, { usertag, password });
+      commit(USER_ACTS.LOGIN, res);
     },
-    [USER_FUTURES.SIGNUP]: function (commit, usertag, email, password) {
-
+    [USER_FUTURES.SIGNUP]: async function (commit, usertag, email, password) {
+      const res = await api(API_CODE.SIGNUP, { usertag, email, password });
+      commit(USER_ACTS.SIGNUP, res);
     }
   },
   getters: {

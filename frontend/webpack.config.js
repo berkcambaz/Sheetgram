@@ -16,7 +16,8 @@ module.exports = {
     host: 'localhost',
     port: 8080,
     proxy: {
-      "/api": "http://localhost:8888"
+      "/api": "http://localhost:8888",
+      timeout: 1000 * 60 * 10,
     }
   },
   module: {
