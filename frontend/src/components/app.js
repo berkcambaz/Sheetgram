@@ -95,7 +95,7 @@ export const Component_App = lucid.component({
 fetch(window.location.origin + "/api", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ test: "test" })
+  body: JSON.stringify({ type: "login", data: { usertag: "berkcambaz", password: "123456fark7" } })
 })
   .then(res => res.json())
   .then(data => { console.log(data); })

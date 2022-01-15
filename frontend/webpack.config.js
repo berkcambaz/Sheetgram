@@ -16,7 +16,7 @@ module.exports = {
     host: 'localhost',
     port: 8080,
     proxy: {
-      "/api": "http://localhost"
+      "/api": "http://localhost:8888"
     }
   },
   module: {
