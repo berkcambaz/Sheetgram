@@ -13,10 +13,9 @@ export const Component_View_Signup = lucid.component({
   render: function () {
     return `
       <div class="signup">
-        <input class="signup input" type="text" placeholder="Username...">
+        <input class="signup input" type="text" placeholder="Usertag...">
         <input class="signup input" type="email" placeholder="E-mail...">
         <input class="signup input" type="password" placeholder="Password...">
-        <input class="signup input" type="password" placeholder="Confirm password...">
         <button class="signup button" onclick="{{methods.signup}}">Sign up</button>
         <div class="signup button--text" onclick="{{methods.gotoLogin}}">I already have an account</div>
       </div>

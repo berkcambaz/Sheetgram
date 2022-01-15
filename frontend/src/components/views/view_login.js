@@ -13,7 +13,7 @@ export const Component_View_Login = lucid.component({
   render: function () {
     return `
       <div class="login">
-        <input class="login input" type="text" placeholder="Username...">
+        <input class="login input" type="text" placeholder="Usertag...">
         <input class="login input" type="password" placeholder="Password...">
         <button class="login button" onclick="{{methods.login}}">Log in</button>
         <div class="login button--text" onclick="{{methods.gotoSignup}}">I don't have an account</div>

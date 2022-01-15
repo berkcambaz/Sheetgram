@@ -1,9 +1,13 @@
 class API {
   constructor() {
-    this.handle = function (json) {
-      console.log(json);
-
-      return json;
+    /**
+     * 
+     * @param {import("express").Request} req 
+     * @param {import("express").Response} res 
+     */
+    this.handle = function (req, res) {
+      console.log(req.body);
+      res.send(req.body);
     }
   }
 }
