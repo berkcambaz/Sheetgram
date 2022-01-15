@@ -70,6 +70,20 @@ export const Component_App = lucid.component({
      * @param {import("../constants/routes").Route} newRoute 
      */
     route: function (oldRoute, newRoute) {
+      // If not logged in and not in a route for guests(login or signup)
+      if (!storeUser.state.main && !newRoute.properties.forGuests) {
+        superpage.to("/login");
+        this.attributes.route = oldRoute; // Directly redirected, so set route back to old one
+        return;
+      }
+
+      // If logged in and in a route for guests(login or signup)
+      if (storeUser.state.main && newRoute.properties.forGuests) {
+        superpage.to("/home");
+        this.attributes.route = oldRoute; // Directly redirected, so set route back to old one
+        return;
+      }
+
       if (newRoute.properties.showPencil) lucid.instance(COMPONENT_ICON.PENCIL, "app").attribute("class", "app__top__icon--right");
       else lucid.instance(COMPONENT_ICON.PENCIL, "app").attribute("class", "app__top__icon--right hidden");
 

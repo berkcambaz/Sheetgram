@@ -9,9 +9,7 @@ import { ROUTES } from "./constants/routes";
 
 import { storeUser, USER_ACTS, USER_FUTURES } from "./stores/store_user";
 
-/// REMOVE \\\
 superpage.redirect("/", "/home");
-/// REMOVE \\\
 
 superpage.fallback(function () { console.log("Route was not found."); });
 

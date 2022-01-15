@@ -30,18 +30,15 @@ export const storeUser = new Luckt({
   },
   acts: {
     [USER_ACTS.AUTH]: function (state, res) {
-      console.log(res);
       if (!res.err) state.main = translate(res);
     },
     [USER_ACTS.LOGIN]: function (state, res) {
-      console.log(res);
       if (!res.err) {
         state.main = translate(res);
         superpage.to("/home");
       }
     },
     [USER_ACTS.SIGNUP]: function (state, res) {
-      console.log(res);
       if (!res.err) {
         state.main = translate(res);
         superpage.to("/home");
