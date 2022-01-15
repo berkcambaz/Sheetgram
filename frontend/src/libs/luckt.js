@@ -61,7 +61,7 @@ export class Luckt {
      * @param  {...any} args 
      */
     this.promise = function (future, ...args) {
-      futures[future](this.commit, ...args);
+      futures[future](this.commit.bind(this), ...args);
     }
 
     /**
@@ -72,14 +72,14 @@ export class Luckt {
      * @returns 
      */
     this.watch = (act, callback, prepend) => {
-      if (!watches[act]) watches[act] = [];
+      if (!watchers[act]) watchers[act] = [];
 
-      if (prepend) watches[act].unshift(callback);
-      else watches[act].push(callback);
+      if (prepend) watchers[act].unshift(callback);
+      else watchers[act].push(callback);
 
       return () => {
-        const index = watches[act].indexOf(callback);
-        if (index !== -1) watches[act].splice(index, 1);
+        const index = watchers[act].indexOf(callback);
+        if (index !== -1) watchers[act].splice(index, 1);
       }
     }
   }

@@ -22,6 +22,7 @@ async function auth(api, token) {
   const res = await query(sql, [token]);
   if (res.err) {
     api.res.send({ err: ERROR.USER_AUTH_FAIL });
+    api.res.clearCookie("token");
     return;
   }
   const userId = res.results[0].user_id;

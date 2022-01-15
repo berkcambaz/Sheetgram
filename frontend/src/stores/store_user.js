@@ -1,4 +1,22 @@
+import { superpage } from "../libs/superpage";
 import { Luckt } from "../libs/luckt";
+
+import { api } from "../core/api";
+import API_CODES from "../../../api_codes.json";
+
+const API_CODE = API_CODES.API_CODE;
+
+export const USER_ACTS = {
+  AUTH: "AUTH",
+  LOGIN: "LOGIN",
+  SIGNUP: "SIGNUP"
+}
+
+export const USER_FUTURES = {
+  AUTH: "AUTH",
+  LOGIN: "LOGIN",
+  SIGNUP: "SIGNUP"
+}
 
 export const USER_GETTERS = {
   GET_USER_BY_ID: "getuserbyid",
@@ -7,53 +25,31 @@ export const USER_GETTERS = {
 
 export const storeUser = new Luckt({
   state: {
-    main: {
-      id: 0,
-      usertag: "berkcambaz",
-      username: "Berk Cambaz",
-      bio: "CMON INGERLAND SCOR SOM FOKIN GOALS",
-      date: new Date(),
-      followers: 3169420,
-      following: 3169420
+    main: undefined,
+    users: undefined
+  },
+  acts: {
+    [USER_ACTS.AUTH]: function (state, res) {
+      if (!res.err) state.main = res;
     },
-    users: [
-      {
-        id: 1,
-        usertag: "dorkodu",
-        username: "Doruk Dorkodu",
-        bio: `vefa'151 · founder & chief @dorkodu · digital craftsman · software, #web3, artwork · high school kid · @doruksdraftbook · veritas vos liberabit`,
-        date: new Date(),
-        followers: 3169420,
-        following: 3169420
-      },
-      {
-        id: 2,
-        usertag: "muhammedhasan",
-        username: "Muhammed Hasan",
-        bio: `en iyi arkadaşı dünyanın berk`,
-        date: new Date(),
-        followers: 4203169,
-        following: 4203169
-      },
-      {
-        id: 3,
-        usertag: "shafuck",
-        username: "Shafuck",
-        bio: `professional valorant player for @teamliquid`,
-        date: new Date(),
-        followers: 4203169,
-        following: 4203169
-      },
-      {
-        id: 4,
-        usertag: "skystars",
-        username: "Skystars",
-        bio: `helo turks`,
-        date: new Date(),
-        followers: 515,
-        following: 515
-      }
-    ]
+    [USER_ACTS.LOGIN]: function (state) {
+
+    },
+    [USER_ACTS.SIGNUP]: function (state) {
+
+    }
+  },
+  futures: {
+    [USER_FUTURES.AUTH]: async function (commit) {
+      const res = await api(API_CODE.AUTH);
+      commit(USER_ACTS.AUTH, res);
+    },
+    [USER_FUTURES.LOGIN]: function (commit, usertag, password) {
+
+    },
+    [USER_FUTURES.SIGNUP]: function (commit, usertag, email, password) {
+
+    }
   },
   getters: {
     [USER_GETTERS.GET_USER_BY_ID]: (state) => (userId) => {

@@ -91,15 +91,3 @@ export const Component_App = lucid.component({
     }
   }
 });
-
-fetch(window.location.origin + "/api", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    type: "SIGNUP", data: {
-      usertag: "berkcambazzzzzz", email: "berkcambaz12321@gmail.commmmmm", password: "123456fark7"
-    }
-  })
-})
-  .then(res => res.json())
-  .then(data => { console.log(data); })

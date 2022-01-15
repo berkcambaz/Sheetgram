@@ -7,6 +7,8 @@ import { Component_App } from "./components/app";
 
 import { ROUTES } from "./constants/routes";
 
+import { storeUser, USER_ACTS, USER_FUTURES } from "./stores/store_user";
+
 /// REMOVE \\\
 superpage.redirect("/", "/home");
 /// REMOVE \\\
@@ -46,6 +48,12 @@ superpage.route(ROUTES.ACCOUNTS.path, function () {
   lucid.instance(Component_App, 0).attribute("route", ROUTES.ACCOUNTS);
 });
 
-superpage.run("hash", function () {
-  lucid.render(document.getElementById("app"), Component_App, 0);
+const removeListener = storeUser.watch(USER_ACTS.AUTH, () => {
+  superpage.run("hash", function () {
+    if (!storeUser.state.main) superpage.to("/login");
+    lucid.render(document.getElementById("app"), Component_App, 0);
+  });
+
+  removeListener();
 });
+storeUser.promise(USER_FUTURES.AUTH);
