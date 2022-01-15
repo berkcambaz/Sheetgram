@@ -11,8 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@supabase/supabase-js": "^1.29.1",
-    "express": "^4.17.2"
+    "dotenv": "^12.0.3",
+    "express": "^4.17.2",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "@types/node": "^17.0.8",

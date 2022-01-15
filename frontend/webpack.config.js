@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
@@ -7,6 +9,15 @@ module.exports = {
   output: {
     filename: "index.js",
     path: __dirname + "/public"
+  },
+  devServer: {
+    historyApiFallback: true,
+    hot: true,
+    host: 'localhost',
+    port: 8080,
+    proxy: {
+      "/api": "http://localhost"
+    }
   },
   module: {
     rules: [
@@ -48,6 +59,9 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].css",
       chunkFilename: "[id].css"
+    }),
+    new webpack.HotModuleReplacementPlugin({
+      multiStep: true
     })
   ]
 };
