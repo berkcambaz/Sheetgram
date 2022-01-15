@@ -9,13 +9,15 @@ const API_CODE = API_CODES.API_CODE;
 export const USER_ACTS = {
   AUTH: "AUTH",
   LOGIN: "LOGIN",
-  SIGNUP: "SIGNUP"
+  SIGNUP: "SIGNUP",
+  LOGOUT: "LOGOUT"
 }
 
 export const USER_FUTURES = {
   AUTH: "AUTH",
   LOGIN: "LOGIN",
-  SIGNUP: "SIGNUP"
+  SIGNUP: "SIGNUP",
+  LOGOUT: "LOGOUT"
 }
 
 export const USER_GETTERS = {
@@ -43,6 +45,12 @@ export const storeUser = new Luckt({
         state.main = translate(res);
         superpage.to("/home");
       }
+    },
+    [USER_ACTS.LOGOUT]: async function (state, res) {
+      if (!res.err) {
+        state.main = undefined;
+        superpage.to("/login");
+      }
     }
   },
   futures: {
@@ -57,6 +65,10 @@ export const storeUser = new Luckt({
     [USER_FUTURES.SIGNUP]: async function (commit, usertag, email, password) {
       const res = await api(API_CODE.SIGNUP, { usertag, email, password });
       commit(USER_ACTS.SIGNUP, res);
+    },
+    [USER_FUTURES.LOGOUT]: async function (commit) {
+      const res = await api(API_CODE.LOGOUT);
+      commit(USER_ACTS.LOGOUT, res);
     }
   },
   getters: {

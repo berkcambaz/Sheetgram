@@ -3,10 +3,12 @@ import { superpage } from "../../libs/superpage";
 
 import { COMPONENT_ICON } from "../common/icon_factory";
 
+import { storeUser, USER_FUTURES } from "../../stores/store_user";
+
 export const Component_View_Settings = lucid.component({
   methods: {
     logout: function () {
-      superpage.to("/login");
+      storeUser.promise(USER_FUTURES.LOGOUT);
     }
   },
   render: function () {

@@ -1,5 +1,5 @@
 const API_CODE = require("../../../api_codes.json").API_CODE;
-const { auth, login, signup } = require("../api/auth");
+const { auth, login, signup, logout } = require("../api/auth");
 
 class API {
   constructor() {
@@ -21,6 +21,9 @@ class API {
           break;
         case API_CODE.SIGNUP:
           signup({ req, res }, data.usertag, data.email, data.password);
+          break;
+        case API_CODE.LOGOUT:
+          logout({ req, res }, req.cookies.token);
           break;
         default:
           res.send({});

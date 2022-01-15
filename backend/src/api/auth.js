@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const srandom = require("secure-random");
 
 const { db, query } = require("../core/db");
-const ERROR = require("../../../error_codes.json").ERROR;
+const STATUS_CODE = require("../../../status_codes.json");
 const { userById, userAuth } = require("./user");
 
 /**
@@ -12,7 +12,7 @@ const { userById, userAuth } = require("./user");
  */
 async function auth(api, token) {
   if (!token) {
-    api.res.send({ err: ERROR.USER_AUTH_FAIL });
+    api.res.send({ err: STATUS_CODE.ERROR.USER_AUTH_FAIL });
     return;
   }
 
@@ -21,8 +21,8 @@ async function auth(api, token) {
   `;
 
   const res = await query(sql, [token]);
-  if (res.err) {
-    api.res.send({ err: ERROR.USER_AUTH_FAIL });
+  if (res.err || res.results.length === 0) {
+    api.res.send({ err: STATUS_CODE.ERROR.USER_AUTH_FAIL });
     api.res.clearCookie("token");
     return;
   }
@@ -39,11 +39,11 @@ async function auth(api, token) {
  */
 async function login(api, usertag, password) {
   if (typeof usertag !== "string" || usertag.length === 0 || usertag.length > 32) {
-    api.res.send({ err: ERROR.LOGIN_FAIL });
+    api.res.send({ err: STATUS_CODE.ERROR.LOGIN_FAIL });
     return;
   }
   if (typeof password !== "string" || password.length === 0 || password.length > 32) {
-    api.res.send({ err: ERROR.LOGIN_FAIL });
+    api.res.send({ err: STATUS_CODE.ERROR.LOGIN_FAIL });
     return;
   }
 
@@ -68,15 +68,15 @@ async function login(api, usertag, password) {
  */
 async function signup(api, usertag, email, password) {
   if (typeof usertag !== "string" || usertag.length === 0 || usertag.length > 32) {
-    api.res.send({ err: ERROR.SIGNUP_FAIL });
+    api.res.send({ err: STATUS_CODE.ERROR.SIGNUP_FAIL });
     return;
   }
   if (typeof email !== "string" || email.length === 0 || email.length > 320) {
-    api.res.send({ err: ERROR.SIGNUP_FAIL });
+    api.res.send({ err: STATUS_CODE.ERROR.SIGNUP_FAIL });
     return;
   }
   if (typeof password !== "string" || password.length === 0 || password.length > 32) {
-    api.res.send({ err: ERROR.SIGNUP_FAIL });
+    api.res.send({ err: STATUS_CODE.ERROR.SIGNUP_FAIL });
     return;
   }
 
@@ -89,10 +89,10 @@ async function signup(api, usertag, email, password) {
   if (res.err) {
     switch (res.err.sqlMessage.split("'")[3]) {
       case "tag":
-        api.res.send({ err: ERROR.USERTAG_TAKEN });
+        api.res.send({ err: STATUS_CODE.ERROR.USERTAG_TAKEN });
         return;
       case "email":
-        api.res.send({ err: ERROR.EMAIL_TAKEN });
+        api.res.send({ err: STATUS_CODE.ERROR.EMAIL_TAKEN });
         return;
     }
   }
@@ -101,6 +101,27 @@ async function signup(api, usertag, email, password) {
     await createToken(api, user.id);
     api.res.send(user);
   }
+}
+
+/**
+ * 
+ * @param {{req: import("express").Request, res: import("express").Response}} api 
+ * @param {string} token 
+ */
+async function logout(api, token) {
+  if (!token) {
+    api.res.send({ success: STATUS_CODE.SUCCESS.LOGGED_OUT });
+    return;
+  }
+
+  const sql = `
+    DELETE FROM session WHERE token=?
+  `;
+
+  const res = await query(sql, [token]);
+  api.res.send({ success: STATUS_CODE.SUCCESS.LOGGED_OUT });
+  api.res.clearCookie("token");
+  return;
 }
 
 /**
@@ -120,4 +141,4 @@ async function createToken(api, userId) {
   if (!res.err) api.res.cookie("token", token, { httpOnly: true, sameSite: "strict", secure: true });
 }
 
-module.exports = { auth, login, signup };
+module.exports = { auth, login, signup, logout };
