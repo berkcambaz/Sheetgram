@@ -1,6 +1,6 @@
 const { query } = require("../core/db");
 const { joinAtrs } = require("../core/utility");
-const ERROR = require("../../../error_codes.json").SERVER_ERROR;
+const ERROR = require("../../../error_codes.json").ERROR;
 
 async function userById(id, atrs) {
   if (typeof id !== "number" || id < 0);
@@ -10,7 +10,8 @@ async function userById(id, atrs) {
   `;
 
   const res = await query(sql, [id]);
-  return res;
+  if (res.err) return { err: ERROR.USER_BY_ID_FAIL };
+  return res.results[0];
 }
 
 async function userByTag(tag, atrs) {
@@ -21,7 +22,8 @@ async function userByTag(tag, atrs) {
   `;
 
   const res = await query(sql, [tag]);
-  return res;
+  if (res.err) return { err: ERROR.USER_BY_TAG_FAIL };
+  return res.results[0];
 }
 
 async function userAuth(usertag, password) {
@@ -29,10 +31,13 @@ async function userAuth(usertag, password) {
   if (typeof password !== "string" || password.length === 0 || password.length > 32);
 
   const sql = `
-    SELECT password FROM user WHERE tag=?
+    SELECT id, password FROM user WHERE tag=?
   `;
 
   const res = await query(sql, [usertag]);
+  if (res.err) return { err: ERROR.USER_AUTH_FAIL };
+  return String.fromCharCode(...res.results[0].password) === password ?
+    { id: res.results[0].id } : { err: ERROR.USER_AUTH_FAIL };
 }
 
-module.exports = { userById, userByTag };
+module.exports = { userById, userByTag, userAuth };
