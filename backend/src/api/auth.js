@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+
 const { db, query } = require("../core/db");
 const ERROR = require("../../../error_codes.json").ERROR;
 const { userById, userAuth } = require("./user");
@@ -8,7 +10,23 @@ const { userById, userAuth } = require("./user");
  * @param {string} token 
  */
 async function auth(api, token) {
+  if (!token) {
+    api.res.send({ err: ERROR.USER_AUTH_FAIL });
+    return;
+  }
 
+  const sql = `
+    SELECT user_id FROM session WHERE token=?
+  `;
+
+  const res = await query(sql, [token]);
+  if (res.err) {
+    api.res.send({ err: ERROR.USER_AUTH_FAIL });
+    return;
+  }
+  const userId = res.results[0].user_id;
+  const user = await userById(userId, ["id", "date", "name", "tag", "bio", "followers", "following"]);
+  api.res.send(user);
 }
 
 /**
@@ -59,7 +77,7 @@ async function signup(api, usertag, email, password) {
     VALUES (UNIX_TIMESTAMP(), ?, ?, ?, ?, "", 0, 0)
   `;
 
-  const res = await query(sql, [usertag, usertag, email, password]);
+  const res = await query(sql, [usertag, usertag, email, bcrypt.hashSync(password, 10)]);
   if (res.err) {
     switch (res.err.sqlMessage.split("'")[3]) {
       case "tag":
@@ -71,7 +89,7 @@ async function signup(api, usertag, email, password) {
     }
   }
   else {
-    const user = await userById(api, res.results.insertId, ["id", "date", "name", "tag", "bio", "followers", "following"])
+    const user = await userById(res.results.insertId, ["id", "date", "name", "tag", "bio", "followers", "following"])
     api.res.send(user);
   }
 }

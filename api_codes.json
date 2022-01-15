@@ -1,5 +1,6 @@
 {
   "API_CODE": {
+    "AUTH": "AUTH",
     "LOGIN": "LOGIN",
     "SIGNUP": "SIGNUP"
   }

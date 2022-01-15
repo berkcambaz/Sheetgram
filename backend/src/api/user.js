@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+
 const { query } = require("../core/db");
 const { joinAtrs } = require("../core/utility");
 const ERROR = require("../../../error_codes.json").ERROR;
@@ -36,7 +38,8 @@ async function userAuth(usertag, password) {
 
   const res = await query(sql, [usertag]);
   if (res.err) return { err: ERROR.USER_AUTH_FAIL };
-  return String.fromCharCode(...res.results[0].password) === password ?
+  return bcrypt.compareSync(password, res.results[0].password) ?
+    //return String.fromCharCode(...res.results[0].password) === password ?
     { id: res.results[0].id } : { err: ERROR.USER_AUTH_FAIL };
 }
 

@@ -13,6 +13,9 @@ class API {
       let data = req.body.data;
 
       switch (type) {
+        case API_CODE.AUTH:
+          auth({ req, res }, req.cookies.token);
+          break;
         case API_CODE.LOGIN:
           login({ req, res }, data.usertag, data.password);
           break;
