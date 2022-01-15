@@ -1,12 +1,13 @@
-const db = require("../core/db");
-const ERROR = require("../../../error_codes.json").server_error;
+const { db, query } = require("../core/db");
+const ERROR = require("../../../error_codes.json").SERVER_ERROR;
+const { userById } = require("./user");
 
 /**
  * 
  * @param {{req: import("express").Request, res: import("express").Response}} api 
  * @param {string} token 
  */
-function auth(api, token) {
+async function auth(api, token) {
 
 }
 
@@ -16,8 +17,17 @@ function auth(api, token) {
  * @param {string} usertag 
  * @param {string} password 
  */
-function login(api, usertag, password) {
+async function login(api, usertag, password) {
+  if (typeof usertag !== "string" || usertag.length === 0 || usertag.length > 32)
+    return { err: ERROR.SIGNUP_FAIL };
+  if (typeof password !== "string" || password.length === 0 || password.length > 32)
+    return { err: ERROR.SIGNUP_FAIL };
 
+  const sql = `
+    SELECT FROM user WHERE tag=? AND password=?
+  `;
+
+  const res = await query(sql, [usertag, password]);
 }
 
 /**
@@ -28,7 +38,7 @@ function login(api, usertag, password) {
  * @param {string} password 
  * @returns 
  */
-function signup(api, usertag, email, password) {
+async function signup(api, usertag, email, password) {
   if (typeof usertag !== "string" || usertag.length === 0 || usertag.length > 32)
     return { err: ERROR.SIGNUP_FAIL };
   if (typeof email !== "string" || email.length === 0 || email.length > 320)
@@ -41,21 +51,21 @@ function signup(api, usertag, email, password) {
     VALUES (UNIX_TIMESTAMP(), ?, ?, ?, ?, "", 0, 0)
   `;
 
-  db.query(sql, [usertag, usertag, email, password], (err, results, fields) => {
-    if (err) {
-      switch (err.sqlMessage.split("'")[3]) {
-        case "tag":
-          api.res.send({ err: ERROR.USERTAG_TAKEN })
-          break;
-        case "email":
-          api.res.send({ err: ERROR.EMAIL_TAKEN })
-          break;
-      }
+  const res = query(sql, [usertag, usertag, email, password]);
+  if (res.err) {
+    switch (res.err.sqlMessage.split("'")[3]) {
+      case "tag":
+        api.res.send({ err: ERROR.USERTAG_TAKEN })
+        break;
+      case "email":
+        api.res.send({ err: ERROR.EMAIL_TAKEN })
+        break;
     }
-    else {
-      api.res.send({ success: 1 });
-    }
-  });
+  }
+  else {
+    const user = userById(api, res.results.insertId, ["id", "date", "name", "tag", "bio", "followers", "following"])
+    api.res.send(user.results[0]);
+  }
 }
 
 module.exports = { auth, login, signup };

@@ -96,8 +96,8 @@ fetch(window.location.origin + "/api", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
-    type: "signup", data: {
-      usertag: "berkcambaz", email: "berkcambaz12321@gmail.com", password: "123456fark7"
+    type: "SIGNUP", data: {
+      usertag: "berkcambazz", email: "berkcambaz12321@gmail.comz", password: "123456fark7"
     }
   })
 })

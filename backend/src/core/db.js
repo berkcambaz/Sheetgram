@@ -12,4 +12,18 @@ db.connect((err) => {
   console.log("Connected to the database...");
 });
 
-module.exports = db;
+/**
+ * 
+ * @param {string} sql 
+ * @param {any} values 
+ * @returns {Promise<{err: mysql.MysqlError, results: any, fields: mysql.FieldInfo[]}>}
+ */
+function query(sql, values) {
+  return new Promise((resolve) => {
+    db.query(sql, values, (err, results, fields) => {
+      resolve({ err, results, fields });
+    })
+  });
+}
+
+module.exports = { db, query };
