@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const srandom = require("secure-random");
 
 const { db, query } = require("../core/db");
 const ERROR = require("../../../error_codes.json").ERROR;
@@ -47,8 +48,14 @@ async function login(api, usertag, password) {
   }
 
   const res = await userAuth(usertag, password);
-  if (res.err) api.res.send(res);
-  else api.res.send(await userById(res.id, ["id", "date", "name", "tag", "bio", "followers", "following"]))
+  if (res.err) {
+    api.res.send(res);
+  }
+  else {
+    const user = await userById(res.id, ["id", "date", "name", "tag", "bio", "followers", "following"]);
+    await createToken(api, user.id);
+    api.res.send(user);
+  }
 }
 
 /**
@@ -91,8 +98,26 @@ async function signup(api, usertag, email, password) {
   }
   else {
     const user = await userById(res.results.insertId, ["id", "date", "name", "tag", "bio", "followers", "following"])
+    await createToken(api, user.id);
     api.res.send(user);
   }
+}
+
+/**
+ * 
+ * @param {{req: import("express").Request, res: import("express").Response}} api 
+ * @param {number} userId 
+ */
+async function createToken(api, userId) {
+  const token = String.fromCharCode(...srandom(16, { type: "Uint8Array" }));
+
+  const sql = `
+    INSERT INTO session (user_id, token)
+    VALUES (?, ?)
+  `;
+
+  const res = await query(sql, [userId, token]);
+  if (!res.err) api.res.cookie("token", token, { httpOnly: true, sameSite: "strict", secure: true });
 }
 
 module.exports = { auth, login, signup };
