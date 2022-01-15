@@ -1,0 +1,7 @@
+{
+  "server_error": {
+    "USERTAG_TAKEN": "USERTAG_TAKEN",
+    "EMAIL_TAKEN": "EMAIL_TAKEN",
+    "SIGNUP_FAIL": "SIGNUP_FAIL"
+  }
+}

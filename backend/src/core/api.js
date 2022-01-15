@@ -8,20 +8,20 @@ class API {
      * @param {import("express").Response} res 
      */
     this.handle = function (req, res) {
-      let output = {};
       let type = req.body.type;
       let data = req.body.data;
 
       switch (type) {
         case "login":
-          output = login(data.usertag, data.password);
+          login({ req, res }, data.usertag, data.password);
           break;
         case "signup":
-          output = signup(data.usertag, data.email, data.password);
+          signup({ req, res }, data.usertag, data.email, data.password);
+          break;
+        default:
+          res.send({});
           break;
       }
-
-      res.send(output);
     }
   }
 }
