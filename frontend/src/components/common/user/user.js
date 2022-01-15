@@ -5,13 +5,16 @@ import { COMPONENT_ICON } from "../../common/icon_factory";
 import { storePost, POST_GETTERS } from "../../../stores/store_post";
 import { storeUser, USER_GETTERS } from "../../../stores/store_user";
 
-import { monthYearDate } from "../../../core/date_utility";
+import { fullDate, monthYearDate } from "../../../core/date_utility";
 import { clampNumber } from "../../../core/utility";
 
 export const Component_User = lucid.component({
   attributes: function () { return { user: undefined } },
   methods: {
-    getDate: function () {
+    getLongDate: function () {
+      return fullDate(this.attributes.user.date);
+    },
+    getShortDate: function () {
       return monthYearDate(this.attributes.user.date);
     },
     getFollowerCount: function () {
@@ -28,7 +31,7 @@ export const Component_User = lucid.component({
         <div class="user__usertag">@{{attributes.user.usertag}}</div>
         <div>{{attributes.user.bio}}</div>
         <div class="user__date" lucid-ref="date">
-          <div>{{methods.getDate}}</div>
+          <div title="{{methods.getLongDate}}">{{methods.getShortDate}}</div>
         </div>
         <div>
           <div class="user__followers" title="{{attributes.user.followers}} followers">Followers {{methods.getFollowerCount}}</div>

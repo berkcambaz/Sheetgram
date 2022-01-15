@@ -13,10 +13,10 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     hot: true,
-    host: 'localhost',
+    host: '0.0.0.0',
     port: 8080,
     proxy: {
-      "/api": "http://localhost:8888",
+      "/api": "http://0.0.0.0:8888",
       timeout: 1000 * 60 * 10,
     }
   },

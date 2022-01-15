@@ -31,19 +31,19 @@ export const storeUser = new Luckt({
   acts: {
     [USER_ACTS.AUTH]: function (state, res) {
       console.log(res);
-      if (!res.err) state.main = res;
+      if (!res.err) state.main = translate(res);
     },
     [USER_ACTS.LOGIN]: function (state, res) {
       console.log(res);
       if (!res.err) {
-        state.main = res;
+        state.main = translate(res);
         superpage.to("/home");
       }
     },
     [USER_ACTS.SIGNUP]: function (state, res) {
       console.log(res);
       if (!res.err) {
-        state.main = res;
+        state.main = translate(res);
         superpage.to("/home");
       }
     }
@@ -73,3 +73,26 @@ export const storeUser = new Luckt({
     }
   }
 });
+
+/**
+ * 
+ * @param {object} user 
+ * @param {number} user.id
+ * @param {number} user.date
+ * @param {string} user.name
+ * @param {string} user.tag
+ * @param {string} user.bio
+ * @param {number} user.followers
+ * @param {number} user.following
+ */
+function translate(user) {
+  return {
+    id: user.id,
+    date: new Date(user.date * 1000),
+    username: user.name,
+    usertag: user.tag,
+    bio: user.bio,
+    followers: user.followers,
+    following: user.following
+  };
+}
