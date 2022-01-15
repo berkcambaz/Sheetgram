@@ -8,8 +8,7 @@
 /**
  * @typedef RouteProperties
  * @property {boolean} showPencil
- * @property {boolean} hideMenu
- * @property {boolean} showLogin
+ * @property {boolean} hideBottomBar
  */
 
 /**
@@ -25,8 +24,8 @@ function route(path, name, properties) {
 }
 
 export const ROUTES = {
-  LOGIN: route("/login", "Log in", { hideMenu: true, showLogin: true }),
-  SIGNUP: route("/signup", "Sign up", { hideMenu: true, showLogin: true }),
+  LOGIN: route("/login", "Log in", { hideBottomBar: true }),
+  SIGNUP: route("/signup", "Sign up", { hideBottomBar: true }),
   HOME: route("/home", "Home", { showPencil: true }),
   USER: route("/user/([a-z0-9_]+)", "Profile", { showPencil: true }),
   BOOKMARKS: route("/bookmarks", "Bookmarks", { showPencil: true }),

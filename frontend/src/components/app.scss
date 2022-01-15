@@ -10,29 +10,18 @@
 #app {
 
   .app__top {
-    position: fixed;
-    height: 50px;
-    width: 640px;
-    
-    background-color: #ffffff;  
-    
-    top: 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-
-    z-index: 999;
+    @include bar(top);
 
     @media screen and (max-width: 640px) {
       width: 100%;
     }
 
     .app__top__title {
-      display: inline-block;
-
+      text-align: center;
       font-size: 25px;
       font-weight: bold;
 
       line-height: 50px;
-      margin-left: 50px;
     }
 
     .app__top__icon--left {
@@ -50,13 +39,27 @@
 
   .app__content {
     position: absolute;
-    top: 51px;
-    padding: 0 25px;
+    padding: 51px 25px;
     width: 640px - 50px;
-    height: calc(100vh - 51px);
 
     @media screen and (max-width: (640px - 50px)) {
       width: calc(100% - 50px);
+    }
+  }
+
+  .app__bottom {
+    @include bar(bottom);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    .app__bottom__icon {
+      cursor: pointer;
+    }
+
+    .app__bottom__icon.enabled {
+      stroke-width: 2px;
     }
   }
 

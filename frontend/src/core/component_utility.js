@@ -8,6 +8,8 @@ import { Component_View_Settings } from "../components/views/view_settings";
 import { Component_View_About } from "../components/views/view_about";
 import { Component_View_Accounts } from "../components/views/view_accounts";
 
+import { COMPONENT_ICON } from "../components/common/icon_factory";
+
 import { ROUTES } from "../constants/routes";
 
 export function getViewComponent(view) {
@@ -20,6 +22,16 @@ export function getViewComponent(view) {
     case ROUTES.SETTINGS.name: return Component_View_Settings;
     case ROUTES.ABOUT.name: return Component_View_About;
     case ROUTES.ACCOUNTS.name: return Component_View_Accounts;
+    default: return undefined;
+  }
+}
+
+export function getViewIcon(view) {
+  switch (view) {
+    case ROUTES.HOME.name: return COMPONENT_ICON.HOME;
+    case ROUTES.USER.name: return COMPONENT_ICON.USER;
+    case ROUTES.BOOKMARKS.name: return COMPONENT_ICON.BOOKMARKS;
+    case ROUTES.SETTINGS.name: return COMPONENT_ICON.SETTINGS;
     default: return undefined;
   }
 }
