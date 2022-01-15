@@ -1,3 +1,5 @@
+const db = require("../core/db");
+
 function auth(token) {
   return { token }
 }

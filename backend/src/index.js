@@ -1,10 +1,10 @@
-const api = require("./core/api");
-
 const path = require("path")
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const express = require("express");
 const app = express();
+
+const api = require("./core/api");
 
 app.use(express.json());
 app.use("/", express.static(path.join(__dirname, "../../frontend/public")));
