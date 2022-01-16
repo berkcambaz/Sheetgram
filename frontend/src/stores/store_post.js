@@ -1,13 +1,24 @@
 import { Luckt } from "../libs/luckt";
 
+import { api } from "../core/api";
+import API_CODES from "../../../api_codes.json";
+
+const API_CODE = API_CODES.API_CODE;
+
 export const POST_ACTS = {
+  GET_POSTS: "getposts",
+
   POST_POST: "postpost",
   LIKE_POST: "likepost",
   BOOKMARK_POST: "bookmarkpost"
 }
 
 export const POST_FUTURES = {
-  GET_POSTS: "getposts"
+  GET_POSTS: "getposts",
+
+  POST_POST: "postpost",
+  LIKE_POST: "likepost",
+  BOOKMARK_POST: "bookmarkpost"
 }
 
 export const POST_GETTERS = {
@@ -21,8 +32,11 @@ export const storePost = new Luckt({
     posts: []
   },
   acts: {
-    [POST_ACTS.POST_POST]: function (state, content) {
-      // TODO: Send to server via sage
+    [POST_ACTS.POST_POST]: function (state, res) {
+      console.log(res);
+      if (!res.err) {
+        // Show the post
+      }
     },
     [POST_ACTS.LIKE_POST]: function (state, post) {
       post.liked = !post.liked;
@@ -36,8 +50,9 @@ export const storePost = new Luckt({
     },
   },
   futures: {
-    [POST_FUTURES.GET_POSTS]: function (commit) {
-      // TODO: Send to server via sage
+    [POST_FUTURES.POST_POST]: async function (commit, content) {
+      const res = await api(API_CODE.POST_POST, { content });
+      commit(POST_ACTS.POST_POST, res);
     }
   },
   getters: {

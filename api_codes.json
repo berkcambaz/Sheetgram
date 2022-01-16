@@ -3,6 +3,7 @@
     "AUTH": "AUTH",
     "LOGIN": "LOGIN",
     "SIGNUP": "SIGNUP",
-    "LOGOUT": "LOGOUT"
+    "LOGOUT": "LOGOUT",
+    "POST_POST": "POST_POST"
   }
 }

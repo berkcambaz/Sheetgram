@@ -2,7 +2,7 @@ import { lucid } from "../../libs/lucid";
 
 import { COMPONENT_ICON } from "../common/icon_factory";
 
-import { storePost, POST_ACTS } from "../../stores/store_post";
+import { storePost, POST_ACTS, POST_FUTURES } from "../../stores/store_post";
 
 import { detectClick, detectTouchStart, detectTouchEnd } from "../../core/utility";
 
@@ -27,7 +27,7 @@ export const Component_SubView_PostCreate = lucid.component({
       if (element.value.length === 0) return;
 
       // Commit to the store with the content of the post
-      storePost.commit(POST_ACTS.POST_POST, element.value);
+      storePost.promise(POST_FUTURES.POST_POST, element.value);
 
       element.value = "";
       this.methods.oninput();

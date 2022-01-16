@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const srandom = require("secure-random");
 
-const { db, query } = require("../core/db");
+const { query } = require("../core/db");
 const STATUS_CODE = require("../../../status_codes.json");
 const { userById, userAuth } = require("./user");
 
@@ -9,11 +9,13 @@ const { userById, userAuth } = require("./user");
  * 
  * @param {{req: import("express").Request, res: import("express").Response}} api 
  * @param {string} token 
+ * @param {boolean} returnUser Set to true if on success, you want the user object as well.
+ * @returns {number} userId if returnUser is set to false.
  */
-async function auth(api, token) {
+async function auth(api, token, returnUser) {
   if (!token) {
     api.res.send({ err: STATUS_CODE.ERROR.USER_AUTH_FAIL });
-    return;
+    return false;
   }
 
   const sql = `
@@ -22,13 +24,19 @@ async function auth(api, token) {
 
   const res = await query(sql, [token]);
   if (res.err || res.results.length === 0) {
-    api.res.send({ err: STATUS_CODE.ERROR.USER_AUTH_FAIL });
     api.res.clearCookie("token");
-    return;
+    api.res.send({ err: STATUS_CODE.ERROR.USER_AUTH_FAIL });
+    return false;
   }
+
   const userId = res.results[0].user_id;
-  const user = await userById(userId, ["id", "date", "name", "tag", "bio", "followers", "following"]);
-  api.res.send(user);
+
+  if (returnUser) {
+    const user = await userById(userId, ["id", "date", "name", "tag", "bio", "followers", "following"]);
+    api.res.send(user);
+  }
+
+  return userId;
 }
 
 /**
@@ -119,8 +127,8 @@ async function logout(api, token) {
   `;
 
   const res = await query(sql, [token]);
-  api.res.send({ success: STATUS_CODE.SUCCESS.LOGGED_OUT });
   api.res.clearCookie("token");
+  api.res.send({ success: STATUS_CODE.SUCCESS.LOGGED_OUT });
   return;
 }
 
