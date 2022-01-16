@@ -1,6 +1,6 @@
 const API_CODE = require("../../../api_codes.json").API_CODE;
 const { auth, login, signup, logout } = require("../api/auth");
-const { logicPostPost } = require("../api/logic");
+const { logicPostPost, logicGetPosts } = require("../api/logic");
 
 class API {
   constructor() {
@@ -37,6 +37,9 @@ class API {
       switch (type) {
         case API_CODE.POST_POST:
           logicPostPost({ req, res }, userId, data.content);
+          return;
+        case API_CODE.GET_POST:
+          logicGetPosts({ req, res }, data.type, userId, data.lastId);
           return;
       }
     }

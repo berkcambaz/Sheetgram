@@ -4,6 +4,8 @@ import { Luckt } from "../libs/luckt";
 import { api } from "../core/api";
 import API_CODES from "../../../api_codes.json";
 
+import { storePost, POST_FUTURES } from "./store_post";
+
 const API_CODE = API_CODES.API_CODE;
 
 export const USER_ACTS = {
@@ -33,6 +35,7 @@ export const storeUser = new Luckt({
   acts: {
     [USER_ACTS.AUTH]: function (state, res) {
       if (!res.err) state.main = translate(res);
+      storePost.promise(POST_FUTURES.GET_POSTS, API_CODE.GET_POST_NORMAL);
     },
     [USER_ACTS.LOGIN]: function (state, res) {
       if (!res.err) {

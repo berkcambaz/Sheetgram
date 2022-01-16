@@ -38,6 +38,12 @@ export const storePost = new Luckt({
         // Show the post
       }
     },
+    [POST_ACTS.GET_POSTS]: function (state, res) {
+      console.log(res);
+      if (!res.err) {
+        // Show the post
+      }
+    },
     [POST_ACTS.LIKE_POST]: function (state, post) {
       post.liked = !post.liked;
       if (post.liked) post.likeCount++;
@@ -53,6 +59,10 @@ export const storePost = new Luckt({
     [POST_FUTURES.POST_POST]: async function (commit, content) {
       const res = await api(API_CODE.POST_POST, { content });
       commit(POST_ACTS.POST_POST, res);
+    },
+    [POST_FUTURES.GET_POSTS]: async function (commit, type) {
+      const res = await api(API_CODE.GET_POST, { type });
+      commit(POST_ACTS.GET_POSTS, res);
     }
   },
   getters: {
